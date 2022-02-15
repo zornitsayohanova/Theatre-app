@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-dropdown.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-select2.css}" rel="stylesheet"/>
+    <link th:href="@{/css/actors.css}" rel="stylesheet"/>
+</head>
+<body class="top blue">
+<div data-scroll-container>
+    <button data-scroll class="menu-btn open-modal show-menu">
+        <p>МЕНЮ</p>
+    </button>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div th:replace="base-fragment::menu"></div>
+    <div class="content">
+        <div data-scroll-section>
+            <div class="section c2">
+                <div class="c3 c4 gr-r gr-gap-3 align-center fade" data-scroll>
+                    <span class="f1 t2 text-center" data-th-text="${message}"></span>
+                    <div th:if="${hasAnswered == false}" class="c1 c2 align-center">
+                        <h1 class="t4 f6">Куиз</h1>
+                    </div>
+                    <form th:if="${hasAnswered == false}" class="c3 tc gr-r gr-gap-3" method="post" th:action="@{/send-game-quiz}" th:object="${quiz}">
+                        <div class="c3 gr-gap-2" th:each="question, iter:${quiz.allQuestions}">
+                            <p class="t2 f1 sm" th:text="${question.title}"></p>
+                            <div class="c3 gr-c gr-gap-1 align-start">
+                                <input type="radio" th:name="|allQuestions[${iter.index}].givenAnswer|" th:value="${question.firstAnswer}">
+                                <label class="t1 f1 sm" th:text="${question.firstAnswer}"></label>
+                            </div>
+                            <div class="c3 gr-c gr-gap-1 align-start">
+                                <input type="radio" th:name="|allQuestions[${iter.index}].givenAnswer|" th:value="${question.secondAnswer}">
+                                <label class="t1 f1 sm"  th:text="${question.secondAnswer}"></label>
+                            </div>
+                            <div class="c3 gr-c gr-gap-1 align-start">
+                                <input type="radio" th:name="|allQuestions[${iter.index}].givenAnswer|" th:value="${question.thirdAnswer}">
+                                <label class="t1 f1 sm"  th:text="${question.thirdAnswer}"></label>
+                            </div>
+                        </div>
+                        <div th:if="${not #lists.isEmpty(quiz.allQuestions)}" class="c3 form-group align-end">
+                            <button type="submit" class="btn f5">Изпрати</button>
+                        </div>
+                        <div th:if="${#lists.isEmpty(quiz.allQuestions)}">
+                            <p class="t2 f1">Играта е приключила. Опитайте следващата седмица!</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

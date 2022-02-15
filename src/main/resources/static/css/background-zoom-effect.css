@@ -1,0 +1,35 @@
+.background {
+    width: 90%;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    display: flex;
+    height: 33vw;
+    margin-left: 8%;
+    flex-direction: column;
+    position: relative;
+}
+
+.background-picture img {
+    width: 100%;
+}
+
+.background-picture {
+    width: 100%;
+    display: flex;
+    animation: zoom-in 10s linear infinite alternate;
+}
+
+.fade-up {
+    transition-delay: 0.3s;
+}
+
+.fade{opacity: 0; transition: all 1s cubic-bezier(.215, .61, .355, 1);transition-delay: 1s;}
+
+@keyframes zoom-in {
+    0% {
+        transform:scale(1);
+    }
+    100% {
+        transform:scale(1.5);
+    }
+}

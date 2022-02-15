@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+</head>
+<body class="top purple">
+<div data-scroll-container>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div th:replace="base-fragment::menu"></div>
+    <div class="content">
+        <div data-scroll-section>
+            <div class="section column">
+                <div class="c3 g-r gr-gap-4 align-center">
+                    <h1 class="t4 f3" th:text="${theatre.name}"></h1>
+                    <div class="c3 g-r gr-gap-4 align-center">
+                        <div class="c3 g-r gr-gap-1 align-start">
+                            <p class="t3 f2">Изгледани постановки</p>
+                            <div th:each="play:${theatreWatchedPlays}">
+                                <a th:href="@{/plays/{name}/{id}(name=${play.name},id=${play.id})}">
+                                    <div class="c3 gr-c gr-gap-1 align-start">
+                                        <p class="f1 t1 sm text-left" th:text="${play.name}"></p>
+                                        <div class="ov-h c2 align-center">
+                                            <div class="fade-left delay-1" data-scroll>
+                                                <img class="icon-2" src="/pics/icons/arrow-icon.png">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div th:if="${#lists.isEmpty(theatreWatchedPlays)}">
+                                <p class="f1 t1 sm text-left">Няма резултати.</p>
+                            </div>
+                        </div>
+                        <div class="c3 g-r gr-gap-1 align-start">
+                            <p class="t3 f2">Неизгледани постановки</p>
+                            <div th:each="play:${theatreUnwatchedPlays}">
+                                <a th:href="@{/plays/{name}/{id}(name=${play.name},id=${play.id})}">
+                                    <div class="c3 gr-c gr-gap-1 align-start">
+                                        <p class="f1 t1 sm text-left" th:text="${play.name}"></p>
+                                        <div class="ov-h c2 align-center">
+                                            <div class="fade-left delay-1" data-scroll>
+                                                <img class="icon-2" src="/pics/icons/arrow-icon.png">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div th:if="${#lists.isEmpty(theatreUnwatchedPlays)}">
+                                <p class="f1 t1 sm text-left">Няма резултати.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

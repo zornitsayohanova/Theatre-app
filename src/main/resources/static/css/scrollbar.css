@@ -1,0 +1,33 @@
+body {
+    scrollbar-width: thick;
+    scrollbar-arrow-color: rgba(43, 43, 43, 0);
+}
+
+div {
+    scrollbar-arrow-color: rgba(158, 158, 158, 0);
+    scrollbar-color: #878787 transparent !important;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(43, 43, 43, 0);
+}
+
+::-webkit-scrollbar-button {
+    background-color: rgba(43, 43, 43, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #878787;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #656565;
+}
+
+::-webkit-scrollbar {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #1a1a1a;
+}

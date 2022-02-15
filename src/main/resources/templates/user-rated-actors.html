@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/favourite.css}" rel="stylesheet"/>
+    <link th:href="@{/css/rating.css}" rel="stylesheet"/>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+</head>
+<body class="top green">
+<div data-scroll-container>
+    <button data-scroll class="menu-btn open-modal show-menu">
+        <p>МЕНЮ</p>
+    </button>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div th:replace="base-fragment::menu"></div>
+    <div id="ratingModal" class="modal" data-scroll>
+        <p class="close">X</p>
+        <div class="modal-content">
+        </div>
+    </div>
+    <div class="content">
+        <div data-scroll-section>
+            <div data-scroll-section>
+                <div data-scroll class="c3 gr-gap-1">
+                    <div class="c1 c2 align-center">
+                        <h1 class="t4 f6">Оценени актьори</h1>
+                    </div>
+                    <div class="section align-center">
+                        <div class="c1 c2 align-center">
+                            <div class="box" th:each="actor, iter:${userRatedActors}">
+                                <div class="logo-box c1 c3 gr-r gr-gap-2 align-center">
+                                    <div class="c3 gr-r gr-gap-2">
+                                        <a class="c3 gr-r gr-gap-2"
+                                           th:href="@{/actors/{name}/{id}(name=${actor.name},id=${actor.id})}"
+                                           data-scroll>
+                                            <img th:src="${actor.avatar.path}">
+                                        </a>
+                                        <div class="c3 gr-c gr-gap-1 res-tlt">
+                                            <p class="t3 t5 f1" th:text="${actor.name}"></p>
+                                            <div class="c3 gr-c gr-gap-1 align-end">
+                                                <div class="c3 gr-c gr-gap-0-1">
+                                                    <img class="icon-2" src="/pics/icons/filled-star-icon.png">
+                                                    <p class="t1 f1" th:text="${userRatedActorsRating.get(iter.index).rating}"></p>
+                                                </div>
+                                                <button id="edit-btn" th:onclick="|editRating('${iter.index}')|">
+                                                    <img class="icon-2" src="/pics/icons/edit-icon.png">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-scroll>
+                                    <div th:id="|ratingModal${iter.index}|">
+                                        <div class="modal">
+                                            <button class="close" th:onclick="|closeModal('${iter.index}')|">
+                                                X
+                                            </button>
+                                            <div class="modal-content">
+                                                <form th:action="@{/change-actor-rating/{name}/{id}(name=${actor.name},id=${actor.id})}"
+                                                      th:object="${rating}"
+                                                      method="post">
+                                                    <p class="t2 c2" th:text="'Нов рейтинг за ' + ${actor.getName()}"></p>
+                                                    <div class="c1 c2 align-center">
+                                                        <button type="submit">
+                                                            <div class="star-wrapper">
+                                                                <div class="fas fa-star s5">
+                                                                    <input type="radio" th:field="*{stars}" id="star5" name="rate" value="5" />
+                                                                </div>
+                                                                <div class="fas fa-star s4">
+                                                                    <input type="radio" th:field="*{stars}" id="star4" name="rate" value="4" />
+                                                                </div>
+                                                                <div class="fas fa-star s3">
+                                                                    <input type="radio" th:field="*{stars}" id="star3" name="rate" value="3" />
+                                                                </div>
+                                                                <div class="fas fa-star s2">
+                                                                    <input type="radio" th:field="*{stars}" id="star2" name="rate" value="2" />
+                                                                </div>
+                                                                <div class="fas fa-star s1">
+                                                                    <input type="radio" th:field="*{stars}" id="star1" name="rate" value="1" />
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${#lists.isEmpty(userRatedActors)}">
+                                <p class="t2 f1">Няма резултати</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function editRating(id) {
+        let ratingModal = document.getElementById("ratingModal" + id);
+        let modal = ratingModal.firstElementChild;
+        $(modal).delay(100).fadeIn();
+        $(ratingModal).delay(100).fadeIn();
+        ratingModal.firstElementChild.style.position = "fixed";
+    }
+
+    function closeModal(id) {
+        let ratingModal = document.getElementById("ratingModal" + id);
+        $(ratingModal).delay(100).fadeOut();
+    }
+</script>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+header a {
+    text-transform:lowercase;
+    text-decoration:none;
+    color:#fff;
+}
+
+h1:hover {
+    opacity:1;
+}
+
+header {
+    position:relative;
+    margin: 0 auto;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+header input:focus {
+    width: 200px;
+    height: 20px;
+    border-radius: 40px;
+    padding: 5px;
+    line-height: 2em;
+    font-weight: 100;
+    font-size: 16px;
+    font-family: "Comfortaa", sans-serif;
+    cursor: auto;
+}
+
+header input {
+    float: right;
+    border: 2px solid #fff;
+    outline: none;
+    width: 25px;
+    cursor: pointer;
+    -webkit-transition: 1s all ease-in;
+    -moz-transition: 1s all ease-in;
+    transition: 1s all ease-in;
+    height: 25px;
+    color: #fff;
+    border-radius: 40px;
+    background: none;
+    font-size: 0;
+}
+
+.cl span {
+    width: 2px;
+    height: 15px;
+    border-radius: 2px;
+    background: #fff;
+    display: inline-block;
+}
+
+.front {
+    position: absolute;
+    right: 23px;
+    top: 13px;
+    transform: rotate(-45deg);
+    opacity: 0;
+    animation-delay: .2s;
+    -webkit-transition: .2s all ease-in;
+    -moz-transition: .2s all ease-in;
+    transition: .2s all ease-in;
+    cursor: pointer;
+
+}
+
+.back {
+    position: absolute;
+    right: 6px;
+    top: 23px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    transition: .2s all ease-in;
+    cursor: pointer;
+}
+
+header input:focus + div .front {
+    opacity: 1;
+    -webkit-transition-delay: .2s;
+    -moz-transition-delay: .2s;
+    transition-delay: .2s;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+header input:focus + div .back {
+    right: 24px;
+    top: 13px;
+}
+
+
+
+
+/*h2 {
+    text-align: left;
+    text-transform: uppercase;
+    //color: #fff;
+}
+
+:focus{
+    outline: none;
+}
+
+.newForm{
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 30px;
+    border: 2px solid #fff;
+    transition:all 0.5s ease-in-out;
+    margin-left: 0;
+}
+.newForm input{
+    border: 0;
+    background: transparent;
+    padding: 0 0;
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+    height: 30px;
+    color: #fff;
+    font-family: Nunito, sans-serif;
+    font-size: 22px;
+}
+
+.newForm input::-webkit-search-cancel-button{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background: red;
+    opacity:0;
+    cursor: pointer;
+}
+.newForm.focus input{
+    padding: 0 0 0 20px;
+}
+
+.newForm.focus{
+    width: 200px;
+}
+
+.newForm:after{
+    content: '';
+    width: 13px;
+    height: 2px;
+    display: block;
+    background: #fff;
+    position: absolute;
+    top: 23px;
+    left: 83%;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-right: 5px;
+    transition: all 0.5s ease-in-out;
+ //   z-index: 1000;
+}
+
+.newForm:before{
+    content: '';
+    width: 10px;
+    height: 2px;
+    display: block;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    left: 83%;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    margin-right: 5px;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.newForm.focus:after{
+    top: 14px;
+    width: 30px;
+    left: 164px;
+}
+
+.newForm.focus:before{
+    top: 14px;
+    width: 30px;
+    left: 164px;
+    opacity:1;
+}
+
+::placeholder {
+    color: #ffffff;
+    opacity: 1; !* Firefox *!
+}
+
+:-ms-input-placeholder { !* Internet Explorer 10-11 *!
+    color: #ffffff;
+}
+
+::-ms-input-placeholder { !* Microsoft Edge *!
+    color: #ffffff;
+}*/
+
+@media only screen and (max-width: 900px) {
+    .newForm {
+        width: 6vw;
+        height: 6vw;
+    }
+}
+
+
+@media (max-width: 550px) {
+    .newForm {
+        width: 6vw;
+        height: 6vw;
+    }
+}
+
+@media only screen and (min-width: 550px) and (max-width: 770px) {
+
+    .newForm {
+        width: 6vw;
+        height: 6vw;
+    }
+
+    .newForm::after {
+        top: 30px;
+    }
+}
+
+@media only screen and (min-width: 770px) and (max-width: 900px) {
+
+    .newForm {
+        width: 6vw;
+        height: 6vw;
+    }
+}
+
+
+

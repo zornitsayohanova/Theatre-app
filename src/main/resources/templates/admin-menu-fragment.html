@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link th:href="@{/css/shared.css}" rel="stylesheet"/>
+    <link th:href="@{/css/animations.css}" rel="stylesheet"/>
+    <link th:href="@{/css/modal.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-dropdown.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-select2.css}" rel="stylesheet"/>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet"/>
+    <link th:href="@{/css/scrollbar.css}" rel="stylesheet"/>
+    <link th:href="@{/css/plays.css}" rel="stylesheet"/>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/theatre-hall.css}" rel="stylesheet"/>
+    <link th:href="@{/css/admin.css}" rel="stylesheet"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/smooth-scrollbar@latest/dist/smooth-scrollbar.js"></script>
+</head>
+<body>
+<div class="top-icons c3 gr-c" th:fragment="top-icons">
+    <div class="c3 gr-c align-start">
+        <div class="c3 gr-c gr-gap-2 align-end">
+            <div class="c3 gr-3 gr-gap-1">
+                <a href="/home">
+                    <img class="icon logo" src="/pics/icons/logo-icon.png">
+                </a>
+            </div>
+        </div>
+        <div sec:authorize="hasAuthority('ADMIN1')" id="admin-navbar" class="menu" width="300px" height="70px">
+            <div>
+                <ul class="c3 nav">
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="mbtn text-left">
+                                <a class="nav-link" href="/add-picture">ДОБАВИ</a>
+                            </button>
+                            <div class="dropdown-content">
+                                <a class="nav-link" href="/add-picture">Снимка</a>
+                                <a class="nav-link" href="/add-actor">Актьор</a>
+                                <a class="nav-link" href="/add-theatre">Театър</a>
+                                <a class="nav-link" href="/add-theatre-hall">Сцена</a>
+                                <a class="nav-link" href="/add-play">Постановка</a>
+                                <a class="nav-link" href="/add-play-date">Дата за постановка</a>
+                                <a class="nav-link" href="/add-news">Новина</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="mbtn text-left">
+                                <a class="nav-link" href="/select-play-to-edit">РЕДАКТИРАЙ</a>
+                            </button>
+                            <div class="dropdown-content">
+                                <a class="nav-link" href="/select-actor-to-edit">Актьор</a>
+                                <a class="nav-link" href="/select-theatre-to-edit">Театър</a>
+                                <a class="nav-link" href="/select-theatre-hall-to-edit">Сцена</a>
+                                <a class="nav-link" href="/select-play-to-edit">Постановка</a>
+                                <a class="nav-link" href="/select-news-to-edit">Новина</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="mbtn text-left">
+                                <a class="nav-link" href="/delete-actor">ИЗТРИЙ</a>
+                            </button>
+                            <div class="dropdown-content">
+                                <a class="nav-link" href="/delete-actor">Актьор</a>
+                                <a class="nav-link" href="/delete-theatre">Театър</a>
+                                <a class="nav-link" href="/delete-theatre-hall">Сцена</a>
+                                <a class="nav-link" href="/delete-play">Постановка</a>
+                                <a class="nav-link" href="/get-play">Дата за постановка</a>
+                                <a class="nav-link" href="/delete-news">Новина</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="mbtn text-left">
+                                <a class="nav-link" href="/choose-game-condition">ИГРА</a>
+                            </button>
+                            <div class="dropdown-content">
+                                <a class="nav-link" href="/choose-game-condition">Добави условие</a>
+                                <a class="nav-link" href="/add-new-game-question">Добави въпрос</a>
+                                <a class="nav-link" href="/start-game">Стартиране</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item" th:if="${existsUserWinner == true}">
+                        <a class="nav-link" href="/choose-won-seats" style="color: #67ffa9;">СПЕЧЕЛЕНИ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="c3 gr-c gr-gap-2 align-end">
+        <div class="nb c3 gr-c gr-gap-2 align-end" data-scroll-section>
+            <a sec:authorize="hasAuthority('ADMIN1')" href="/add-picture" class="user-hidden">
+                <img class="icon" src="/pics/icons/admin-icon.png">
+            </a>
+            <a sec:authorize="isAuthenticated()" href="/logout" class="user-hidden">
+                <img class="icon" src="/pics/icons/exit-icon.png">
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

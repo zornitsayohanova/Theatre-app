@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-dropdown.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-select2.css}" rel="stylesheet"/>
+    <link th:href="@{/css/plays.css}" rel="stylesheet"/>
+    <script>
+        $(document).ready(function() {
+            $(document).ready(function() {
+                $("#e1").select2({
+                    placeholder: "Град",
+                    allowClear: true,
+                    dropdownParent: $('#parent-dropdown-1')
+                });
+                $("#e2").select2({
+                    placeholder: "Театър",
+                    allowClear: true,
+                    dropdownParent: $('#parent-dropdown-2')
+                });
+                $("#e3").select2({
+                    placeholder: "Град",
+                    allowClear: true,
+                    dropdownParent: $('#parent-dropdown-1')
+                });
+                $("#e4").select2({
+                    placeholder: "Театър",
+                    allowClear: true,
+                    dropdownParent: $('#parent-dropdown-2')
+                });
+                $("#e5").select2({
+                    placeholder: "Месец",
+                    allowClear: true,
+                    dropdownParent: $('#parent-dropdown-3')
+                });
+                $("#e6").select2({
+                    placeholder: "Град",
+                    allowClear: true,
+                    dropdownParent: $('#parent-dropdown-2')
+                });
+                $("#e7").select2({
+                    placeholder: "Театър",
+                    allowClear: true,
+                    dropdownParent: $('#parent-dropdown-3')
+                });
+                $("#e8").select2({
+                    placeholder: "Име",
+                    allowClear: true,
+                    dropdownParent: $('#parent-dropdown-3')
+                });
+            });
+        });
+    </script>
+</head>
+<body class="top blue">
+<div data-scroll-container>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div class="scroller">
+        <img src="/pics/icons/scroll-icon.png" class="rotate">
+    </div>
+    <div class="content">
+        <div data-scroll-section>
+            <div class="section column gr-gap-5 align-center">
+                <div class="c3 gr-r gr-gap-4">
+                    <div class="c3 gr-r gr-gap-3 tp">
+                        <button id="btn1" class="btn b f5 fade-right" data-scroll>Програма за днес</button>
+                        <button id="btn2" class="btn b f5 fade-right" data-scroll>Програма за дата</button>
+                        <button id="btn3" class="btn b f5 fade-right" data-scroll>Програма за месец</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div class="align-start">
+                <div class="c3 gr-r gr-gap-3">
+                    <p class="t4 f7 text-center">Програмата за днес в София</p>
+                    <div class="align-center">
+                        <div class="c1 c2 align-center">
+                            <div class="c1 c2 align-center">
+                                <div class="box" th:each="play, iter:${playsResults}">
+                                    <div class="c3 gr-r gr-gap-1">
+                                        <a th:href="@{/plays/search/results/{name}/{id}(name=${play.name},id=${play.id})}"
+                                           class="logo-box c2 c1 gr-gap-2 align-center">
+                                            <img th:src="${play.avatar.path}">
+                                            <div class="c3 c2 gr-c gr-gap-1 res-tlt">
+                                                <p class="t3 t5 f1" th:text="${play.name}"></p>
+                                                <div class="c3 gr-c gr-gap-0-1">
+                                                    <img class="icon-2" src="/pics/icons/filled-star-icon.png">
+                                                    <p class="t1 f1"
+                                                       th:text="${#numbers.formatDecimal(playsRatings.get(iter.index), 0, 'COMMA', 1, 'POINT')}">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="c3 gr-r gr-gap-1">
+                                            <div class="c3 gr-gap-1">
+                                                <div class="c3 gr-c gr-gap-1 align-between">
+                                                    <a class="t1 f7 sm"
+                                                       th:href="@{/theatres/search/results/{name}/{id}(name=${play.theatre.name},id=${play.theatre.id})}"
+                                                       th:text="${play.theatre.name}">
+                                                    </a>
+                                                    <a class="t1 f1"
+                                                       th:href="@{/theatres/search/results/{name}/{id}(name=${play.theatre.name},id=${play.theatre.id})}">
+                                                        <img class="icon-2" src="/pics/icons/arrow-icon.png">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <form th:action="@{/choose-play-date/{name}/{id}(name=${play.name},id=${play.id})}"
+                                                  th:object="${play}" method="post">
+                                                <button type="submit" class="btn f5">
+                                                    БИЛЕТИ
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div th:if="${#lists.isEmpty(playsResults)}">
+                                    <p class="t2 f1">Няма налични резултати. Моля, променете своето търсене!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="parent-dropdown-1"></div>
+        <div id="parent-dropdown-2"></div>
+        <div id="parent-dropdown-3"></div>
+
+        <div id="todayModal" class="modal" data-scroll>
+            <p class="close">X</p>
+            <div class="modal-content">
+                <div class="c3 c2 gr-r gr-gap-2 align-center">
+                    <form th:action="@{/today-schedule}" th:object="${play}" method="post">
+                        <div class="c3 gr-r gr-gap-2">
+                            <p class="t3 f2 text-left">Програма за днес</p>
+                            <p class="c2 f1 t2 text-left">Изберете едно или повече</p>
+                            <div class="c3 gr-c gr-gap-2 align-end">
+                                <div class="form-group" data-scroll>
+                                    <div class="select2">
+                                        <select id="e1" class="scrollbar" th:field="*{town}">
+                                            <option value=""></option>
+                                            <option th:each="town:${allTowns}"
+                                                    th:value="${town.id}"
+                                                    th:text="${town.name}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" data-scroll>
+                                    <div class="select2">
+                                        <select id="e2" class="scrollbar" th:field="*{theatre}">
+                                            <option value=""></option>
+                                            <option th:each="theatre:${allTheatres}"
+                                                    th:value="${theatre.id}"
+                                                    th:text="${theatre.name}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn f5" data-scroll>Търси</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="dateModal" class="modal" data-scroll>
+            <p class="close">X</p>
+            <div class="modal-content">
+                <div class="c3 c2 gr-r gr-gap-2 align-center">
+                    <form th:action="@{/date-schedule}" th:object="${play}" method="post">
+                        <div class="c3 gr-r gr-gap-2">
+                            <p class="t3 f2 text-left">Програма за дата</p>
+                            <p class="c2 f1 t2 text-left">Изберете едно или повече, но задължително дата</p>
+                            <div class="c3 gr-c gr-gap-2 align-end">
+                                <div class="form-group" data-scroll>
+                                    <input type="date" th:field="*{date}">
+                                </div>
+                                <div class="form-group" data-scroll>
+                                    <div class="select2">
+                                        <select id="e3" class="scrollbar" th:field="*{town}">
+                                            <option value=""></option>
+                                            <option th:each="town:${allTowns}"
+                                                    th:value="${town.id}"
+                                                    th:text="${town.name}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" data-scroll>
+                                    <div class="select2">
+                                        <select id="e4" class="scrollbar" th:field="*{theatre}">
+                                            <option value=""></option>
+                                            <option th:each="theatre:${allTheatres}"
+                                                    th:value="${theatre.id}"
+                                                    th:text="${theatre.name}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn f5" data-scroll>Търси</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="monthModal" class="modal" data-scroll>
+            <p class="close">X</p>
+            <div class="modal-content">
+                <div class="c3 c2 gr-r gr-gap-2 align-center">
+                    <form th:action="@{/month-schedule}" th:object="${play}" method="post">
+                        <div class="c3 gr-r gr-gap-2">
+                            <p class="t3 f2 text-left">Програма за месец</p>
+                            <p class="c2 f1 t2 text-left">Изберете едно или повече, но задължително месец</p>
+                            <div class="c3 gr-c gr-gap-2 align-end">
+                                <div class="form-group" data-scroll>
+                                    <div class="select2">
+                                        <select id="e5" class="scrollbar" th:field="*{month}">
+                                            <option value=""></option>
+                                            <option th:each="month, iter:${allMonths}"
+                                                    th:value="${iter.index + 1}"
+                                                    th:text="${month}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" data-scroll>
+                                    <div class="select2">
+                                        <select id="e6" class="scrollbar" th:field="*{town}">
+                                            <option value=""></option>
+                                            <option th:each="town:${allTowns}"
+                                                    th:value="${town.id}"
+                                                    th:text="${town.name}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" data-scroll>
+                                    <div class="select2">
+                                        <select id="e7" class="scrollbar" th:field="*{theatre}">
+                                            <option value=""></option>
+                                            <option th:each="theatre:${allTheatres}"
+                                                    th:value="${theatre.id}"
+                                                    th:text="${theatre.name}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn f5" data-scroll>Търси</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var modal1 = $('#todayModal');
+            var modal2 = $('#dateModal');
+            var modal3 = $('#monthModal');
+            var modal4 = $('#playModal');
+
+            $('#btn1').click(function () {
+                modal1.delay(200).fadeIn();
+            });
+
+            $('#btn2').click(function () {
+                modal2.delay(200).fadeIn();
+            });
+
+            $('#btn3').click(function () {
+                modal3.delay(200).fadeIn();
+            });
+
+            $('#btn4').click(function () {
+                modal4.delay(200).fadeIn();
+            });
+
+            $('.close').click(function () {
+                modal1.delay(200).fadeOut();
+                modal2.delay(200).fadeOut();
+                modal3.delay(200).fadeOut();
+                modal4.delay(200).fadeOut();
+            });
+        });
+    </script>
+</div>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,226 @@
+
+body.top {
+    margin: 0;
+    height: 100%;
+}
+
+.section {
+    margin-bottom: 15vw;
+}
+
+.s {
+    margin-bottom: 0;
+}
+
+.section-title {
+    font-size: 18vw;
+    line-height: 1.1;
+    letter-spacing: 0.032em;
+    height: max-content;
+    -webkit-text-stroke: 2px #c9c9c9;
+    color: rgba(158, 158, 158, 0);
+}
+
+.content {
+    margin-top: 1vw;
+}
+
+.fill {
+    -webkit-text-stroke: unset;
+    color: rgb(182, 182, 182);
+}
+
+#visibleContacts a {
+    margin-left: 0;
+    font-weight: bold;
+}
+
+.btn {
+    width: 20vw;
+}
+
+.menu-btn {
+    display: flex;
+}
+
+.comment {
+    width: 70%;
+    margin: auto;
+}
+
+.c4 {
+    overflow-y: scroll;
+    min-height: 20vw;
+    height: 20vw;
+}
+
+.c4 a {
+    font-size: 4.5vw;
+    color: #9e9e9e;
+    letter-spacing: -0.032em;
+    line-height: 0.95em;
+}
+
+.btn-2 {
+    width: max-content;
+}
+
+.c-box {
+   width: 50vw;
+}
+
+.f1 {
+    text-transform: uppercase;
+}
+
+.column {
+    align-items: center;
+}
+
+#edit-comment-section {
+    display: none;
+    height: 500px;
+    position: relative;
+    overflow: scroll;
+}
+
+@media only screen and (max-width: 550px) {
+    .content {
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 14vw;
+    }
+
+    .c4 a {
+        font-size: 13.7vw;
+    }
+}
+
+@media only screen and (min-width: 550px) and (max-width: 770px) {
+    .content {
+        width: 75%;
+    }
+
+    h1 {
+        font-size: 11vw;
+    }
+
+    .content div:nth-child(9).ov-h {
+        justify-content: flex-end;
+        text-align: right;
+    }
+
+    .c4 a {
+        font-size: 7.4vw;
+    }
+}
+
+@media only screen and (min-width: 750px) and (max-width: 900px) {
+
+    h1 {
+        font-size: 8vw;
+    }
+
+    .c4 a {
+        font-size: 6vw;
+        line-height: 1.2em;
+    }
+}
+
+@media only screen and (max-width: 770px) {
+    .ov-h .c3 {
+        grid-auto-flow: row;
+    }
+
+    .c4 {
+        width: 100%;
+        min-height: 50vw;
+    }
+
+    .gr-3, .content > div:first-of-type .gr-c {
+        grid-auto-flow: column;
+    }
+
+    .content div:nth-child(7) .align-start, .content div:nth-child(7) .align-end {
+        justify-content: flex-start;
+    }
+
+    #visibleTicketOffice {
+        text-align: right;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .btn {
+        width: auto;
+    }
+
+    .c-box {
+        width: 100%;
+    }
+}
+
+/*
+.btn-lg::before {
+    content: " ";
+    width: 1.5625rem;
+    height: 2px;
+    background: black;
+    top: 50%;
+    left: 1.5em;
+    position: absolute;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transform-origin: center;
+    transform-origin: center;
+    -webkit-transition: background 0.3s linear, width 0.3s linear;
+    transition: background 0.3s linear, width 0.3s linear;
+}*/
+/*
+.c6 {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+    text-align: left;
+}
+
+.ccc {
+    height: 82%;
+    justify-content: center;
+}
+
+.ccc button {
+    margin-right: 17px;
+}
+.c-lerp-block_title {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0;
+    margin-left: 1.25rem;
+    line-height: 1.1;
+}
+h1 span {
+    transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg);
+    opacity: 1;
+    transform-style: preserve-3d;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

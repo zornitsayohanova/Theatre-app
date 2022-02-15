@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-dropdown.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-select2.css}" rel="stylesheet"/>
+    <link th:href="@{/css/actors.css}" rel="stylesheet"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@1.27.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@2.0.0"></script>
+</head>
+<body class="top blue">
+<div data-scroll-container>
+    <button data-scroll class="menu-btn open-modal show-menu">
+        <p>МЕНЮ</p>
+    </button>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div th:replace="base-fragment::menu"></div>
+    <div class="content">
+        <div data-scroll-section>
+            <div data-scroll class="c3 gr-gap-4 align-center">
+                <div th:if="${hasAnswered == false}" class="c3 tc gr-gap-2">
+                    <h1 class="t4 f6" th:text="${gameTitleOfCondition}"></h1>
+                    <div class="c3 gr-r align-end gr-gap-2" th:if="${user.isGameEligible == true}">
+                        <p class="c3 t2 f1 sm">Вие отговаряте на условието и може да участвате в играта</p>
+                        <form th:action="@{/view-game-quiz}" method="get" class="c3 c2">
+                            <div class="c1 c5 gr-gap-1">
+                                <button type="submit" class="t3 f5 btn" data-scroll>Старт</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div th:if="${!gameTitleOfCondition.isEmpty() && user.isGameEligible == false}">
+                        <p class="c3 t2 f1 sm">Вие не отговаряте на условието и не може да участвате в играта</p>
+                    </div>
+                </div>
+                <div class="c3 tc gr-gap-2">
+                    <h1 class="t4 f6">Точки до момента</h1>
+                    <div class="c3 gr-r gr-gap-2 align-center">
+                        <p class="t4 f1 text-center" th:text="${user.totalActivityScore}"></p>
+                        <div class="section c3 gr-r gr-gap-2 align-center t1 f1 sm text-right">
+                            За всяка резервирана и платена постановка получавате 3 т.,
+                            за всеки изгледан репертоар на актьор - 5т., а на театър - 7 т.
+                            Ако има промяна в репертоарите може да печелите или губите
+                            точки (вж. в менюто <b class="f2">НАБЕЛЯЗАНИ+ИЗГЛЕДАНИ - Актьори и Театри).</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div data-scroll class="c3 gr-gap-4 align-center">
+                <div class="c3 tc gr-gap-2">
+                    <h1 class="t4 f6">Условия на играта</h1>
+                    <div class="section c3 gr-r gr-gap-2 align-center t1 f1 sm text-right">
+                        Всяка седмица има правило за участие в играта - определен брой събрани точки,
+                        конкретен най-гледан жанр или най-посещаван театър.
+                        При съвпадение на личните резутати с едно от изискванията ще
+                        може да участвате в куиз. Участникът с най-бързо отговорени 5 верни
+                        въпроса печели билети за двама в София.
+                        Стандартно, билетите могат да се вземат в рамките на 24
+                        часа или до 30 минути преди постановката (ако са за
+                        дата, падаща се на следващия ден след като ги спечелите) - в противен случай се анулират.
+                        Ще може да наблюдавате оставащото време с таймер в <b class="f2">"СПЕЧЕЛЕНИ".</b>
+                        Билетите за местата могат да се вземат от всяка една каса на театър.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div data-scroll class="c3 gr-gap-4 align-center">
+                <div class="c3 tc gr-gap-2">
+                    <h1 class="t4 f6">Най-гледан <br> от Вас жанр</h1>
+                    <p class="t1 f1 sm text-right">
+                        Сложете мишката върху картинката, за да видите процентите
+                    </p>
+                    <div hidden id="genresNames" th:text="${genresNames}"></div>
+                    <div hidden id="genresPercentages" th:text="${genresPercentages}"></div>
+                </div>
+                <div th:if="${genresNames.length != 0}" class="section">
+                    <div class="c1 c2 align-center" style="width: 100%;height: 45vh">
+                        <canvas id="genresChart"></canvas>
+                    </div>
+                </div>
+                <div th:if="${genresNames.length == 0}" class="section align-center">
+                    <div class="c1 c2 align-center">
+                        <p class="t1 f1 text-center">
+                            Все още няма изгледани постановки
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div data-scroll class="c3 gr-gap-4 align-center">
+                <div class="c3 tc gr-gap-2">
+                    <h1 class="t4 f6">Най-посещаван <br> от Вас театър</h1>
+                    <p class="t1 f1 sm text-right">
+                        Сложете мишката върху картинката, за да видите процентите
+                    </p>
+                    <div hidden id="theatresNames" th:text="${theatresNames}"></div>
+                    <div hidden id="theatresPercentages" th:text="${theatresPercentages}"></div>
+                </div>
+                <div th:if="${theatresNames.length != 0}" class="section">
+                    <div class="c1 c2 align-center" style="width: 100%;height: 45vh">
+                        <canvas id="theatresChart"></canvas>
+                    </div>
+                </div>
+                <div th:if="${theatresNames.length == 0}" class="section align-center">
+                    <div class="c1 c2 align-center">
+                        <p class="t1 f1 text-center">
+                            Все още няма изгледани театри
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        let xGenresValues = document.getElementById('genresNames').innerHTML.split(',').slice(0, -1)
+        let yGenresValues = document.getElementById('genresPercentages').innerHTML.split(',').slice(0, -1).map(Number);
+
+        let barColors = [
+            "#324555",
+            "#275c5c",
+            "#7b3245",
+            "#404040"
+        ];
+
+        if(xGenresValues.length !== 0) {
+            var options = {
+                type: "pie",
+                data: {
+                    labels: xGenresValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yGenresValues
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    title: {
+                        display: false,
+                        text: "User Statistics"
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 25,
+                                    family: "Calibri Light",
+                                    weight: "lighter",
+                                },
+                                color: '#bdbdbd'
+                            }
+                        },
+                        legendDistance: {
+                            padding: 50
+                        }
+                    },
+                    elements: {
+                        arc: {
+                            borderWidth: 0
+                        }
+                    },
+                    animation: {
+                       duration: 3500,
+                        loop: true
+                    }
+                },
+                plugins: [{
+                    id: 'legendDistance',
+                    beforeInit(chart, args, opts) {
+                        // Get reference to the original fit function
+                        const originalFit = chart.legend.fit;
+
+                        // Override the fit function
+                        chart.legend.fit = function fit() {
+                            // Call original function and bind scope in order to use `this` correctly inside it
+                            originalFit.bind(chart.legend)();
+                            // Change the height as suggested in another answers
+                            this.height += 30;;
+                        }
+                    }
+                }]
+            }
+
+            var ctx = document.getElementById('genresChart').getContext('2d');
+            new Chart(ctx, options);
+        }
+
+        let xTheatresValues = document.getElementById('theatresNames').innerHTML.split(',').slice(0, -1);
+        let yTheatresValues = document.getElementById('theatresPercentages').innerHTML.split(',').slice(0, -1).map(Number);
+
+        if(xTheatresValues.length !== 0) {
+            var options2 = {
+                type: "pie",
+                data: {
+                    labels: xTheatresValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yTheatresValues
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    title: {
+                        display: false,
+                        text: "User Statistics"
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 25,
+                                    family: "Calibri Light",
+                                    weight: "lighter",
+                                },
+                                color: '#bdbdbd'
+                            }
+                        },
+                        legendDistance: {
+                            padding: 50
+                        }
+                    },
+                    elements: {
+                        arc: {
+                            borderWidth: 0
+                        }
+                    },
+                    animation: {
+                        duration: 3500,
+                        loop: true
+                    }
+                },
+                plugins: [{
+                    id: 'legendDistance',
+                    beforeInit(chart, args, opts) {
+                        // Get reference to the original fit function
+                        const originalFit = chart.legend.fit;
+
+                        // Override the fit function
+                        chart.legend.fit = function fit() {
+                            // Call original function and bind scope in order to use `this` correctly inside it
+                            originalFit.bind(chart.legend)();
+                            // Change the height as suggested in another answers
+                            this.height += 30;
+                        }
+                    }
+                }]
+            }
+            var ctx2 = document.getElementById('theatresChart').getContext('2d');
+            new Chart(ctx2, options2);
+        }
+    })
+</script>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

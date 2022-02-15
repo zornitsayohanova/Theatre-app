@@ -1,0 +1,109 @@
+/*
+
+.background-picture {
+    background-image:url('/backgrounds/home-background.jpg');
+}
+
+.cd-section:nth-of-type(2) > div {
+    bottom: 0;
+    background-color: #000000;
+}
+
+.s2 {
+    margin-bottom: 3vw;
+}
+
+.btn {
+    background-color: #252e3d;
+}
+
+.scrollbar {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar{width:2px;height:2px;}
+::-webkit-scrollbar-button{width:2px;height:2px;}
+
+div{
+    box-sizing:border-box;
+}
+
+body {
+    background: #000000;
+}
+
+body{
+    overflow-x:hidden;
+    color:#FFF;
+}
+
+.second {
+    margin-top: 24%;
+}
+
+.tt {
+    display: block;
+    margin-bottom: 5%;
+}
+
+.clip {
+    background-image:url('backgrounds/home-background.jpg');
+}
+
+.search-name-form {
+    float: right;
+    margin-right: 90px;
+    margin-top: 20px;
+}
+
+.fade-left {
+    transition: all 1.35s;
+}
+
+.form-group {
+    width: max-content;
+}
+
+.form-box {
+    width: auto;
+}
+
+.select2-container {
+    margin-bottom: 0 !important;
+    width: 550px !important;
+    height: 50px !important;
+}
+
+.blue-background .c5:nth-child(1) {
+    margin-top: 2%;
+}
+
+.select2-container .select2-search--inline .select2-search__field {
+    margin-top: 7px !important;
+    margin-bottom: 5px !important;
+}
+
+.select2 {
+    margin-bottom: 7px !important;
+}
+
+.c3 {
+    flex-direction: column;
+    height: 160px;
+    margin-bottom: 60px;
+}
+
+::placeholder {
+    color: #ababab;
+    opacity: 1;
+    font-family: 'Playfair Display SC', sans-serif;
+}
+
+.select2-search--inline .select2-search__field {
+    font-size: 1.5rem !important;
+}
+
+.first .fade-right {
+    transition-delay: 2100ms;
+}*/

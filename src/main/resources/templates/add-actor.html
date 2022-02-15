@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html">
+<head>
+    <th:block th:include="admin-menu-fragment::head"></th:block>
+    <script>
+        $(document).ready(function() {
+            $('#e1').select2({
+                placeholder: "Галерия (първо изберете снимката за аватар)",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-1')
+            });
+            $('#e2').select2({
+                placeholder: "Театър",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-3')
+            });
+            $("#e3").select2({
+                placeholder: "Вид",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-3')
+            });
+        });
+    </script>
+</head>
+<body class="top blue">
+<div th:replace="admin-menu-fragment::top-icons"></div>
+<div class="content">
+    <div class="section column">
+        <div class="c3 gr-c gr-2">
+            <div class="blue-block align-start c3 gr-2">
+                <form th:action="@{/add-actor}" th:object="${actor}" method="post" class="c3 gr-gap-1-2">
+                    <p class="t3 f6">Добавяне на актьор</p>
+                    <div class="c1 c5 gr-gap-1">
+                        <div class="t1 f1 sm msg c2 text-left" th:text="${message}"></div>
+                        <div class="c3 c2 gr-r gr-gap-3">
+                            <div class="form-group select2 select2-container">
+                                <input type="text" placeholder="Име" th:field="*{name}">
+                            </div>
+                            <div class="form-group fl-c">
+                                <div class="select2 b-0">
+                                    <select id="e1" class="scrollbar" th:field="*{gallery}" multiple>
+                                        <option th:each="picture:${allPictures}"
+                                                th:value="${picture.id}"
+                                                th:text="${picture.name}"
+                                        >
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="select2">
+                                    <select id="e3" class="scrollbar" th:field="*{actorGender}">
+                                        <option value=""></option>
+                                        <option th:each="actorGender:${allGenders}"
+                                                th:value="${actorGender.id}"
+                                                th:text="${actorGender.name}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group select2">
+                                <textarea placeholder="Биография - до 6000 символа" th:field="*{bio}"></textarea>
+                            </div>
+                            <div id="parent-dropdown-1"></div>
+                            <div id="parent-dropdown-2"></div>
+                            <div id="parent-dropdown-3"></div>
+                        </div>
+                        <button type="submit" class="t3 f5 btn" data-scroll>Добави</button>
+                    </div>
+                </form>
+            </div>
+            <img src="/pics/admin-backgrounds/third.jpg">
+        </div>
+        <div class="bck-circle"></div>
+    </div>
+</div>
+</body>
+<script>
+    $(document).ready(function() {
+        Scrollbar.init(document.getElementById("main-scrollbar"), { damping: 0.1, delegateTo: document });
+    })
+</script>
+</html>

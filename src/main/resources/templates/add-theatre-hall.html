@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html">
+<head>
+    <th:block th:include="admin-menu-fragment::head"></th:block>
+    <script>
+        $(document).ready(function() {
+            $("#e1").select2({
+                placeholder: "Театър",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-1')
+            });
+        });
+    </script>
+</head>
+<body class="top blue">
+<div th:replace="admin-menu-fragment::top-icons"></div>
+<div class="content">
+    <div class="section column">
+        <div class="c3 gr-c gr-2">
+            <div class="blue-block align-start c3 gr-2">
+                <form th:action="@{/add-theatre-hall}" th:object="${theatreHall}" method="post" class="c3 gr-gap-1-2">
+                    <p class="t3 f6">Добавяне на сцена (зала)</p>
+                    <div class="c1 c5 gr-gap-1">
+                        <div class="t1 f1 sm msg c2 text-left" th:text="${message}"></div>
+                        <div class="c3 c2 gr-r gr-gap-3">
+                            <div class="form-group select2 select2-container">
+                                <input type="text" placeholder="Име" th:field="*{hallName}">
+                            </div>
+                            <div class="form-group select2 select2-container">
+                                <input type="text" placeholder="Скрити места (със запетая, възходящо)" th:field="*{disabledSeats}">
+                            </div>
+                            <div class="form-group select2 select2-container">
+                                <input type="text" placeholder="Видими места (със запетая, възходящо)" th:field="*{enabledSeats}">
+                            </div>
+                            <div class="form-group select2 select2-container">
+                                <input type="text" placeholder="Брок колони" th:field="*{hallColumns}">
+                            </div>
+                            <div class="form-group select2 select2-container">
+                                <input type="text" placeholder="Брой редове" th:field="*{hallRows}">
+                            </div>
+                            <div class="form-group">
+                                <div class="select2">
+                                    <select id="e1" class="scrollbar" th:field="*{theatre}">
+                                        <option value=""></option>
+                                        <option th:each="theatre:${allTheatres}"
+                                                th:value="${theatre.id}"
+                                                th:text="${theatre.name}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="parent-dropdown-1"></div>
+                        </div>
+                        <button type="submit" class="t3 f5 btn">Добави</button>
+                    </div>
+                </form>
+            </div>
+            <img src="/pics/admin-backgrounds/fourth.jpg">
+        </div>
+        <div class="bck-circle"></div>
+    </div>
+</div>
+</body>
+</html>

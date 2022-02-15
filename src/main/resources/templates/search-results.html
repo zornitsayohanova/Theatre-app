@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+</head>
+<body class="top blue">
+<div data-scroll-container>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div class="content">
+        <div data-scroll-section>
+            <div class="c3 gr-r gr-gap-5 column align-center">
+                <div class="c3 gr-c gr-gap-1 c2 align-center">
+                    <p class="t3 f7 sm">Резултати от търсенето на: </p>
+                    <p class="t3 f1 sm" th:text="${'&quot;' + searchedKeyword + '&quot;'}"></p>
+                </div>
+                <div class="c1 c2 gr-gap-2 align-center">
+                    <div class="c1 c2 align-center">
+                        <h1 class="t4 f7">Постановки</h1>
+                    </div>
+                    <div class="section align-center">
+                        <div class="c1 c2 align-center">
+                            <div class="box" th:each="play, iter:${playsResults}">
+                                <div class="c3 gr-r gr-gap-1">
+                                    <a th:href="@{/plays/search/results/{name}/{id}(name=${play.name},id=${play.id})}"
+                                       class="logo-box c2 c1 gr-gap-2 align-center">
+                                        <img th:src="${play.avatar.path}">
+                                        <div class="c3 gr-c gr-gap-1 res-tlt">
+                                            <p class="t3 t5 f1" th:text="${play.name}"></p>
+                                            <div class="c3 gr-c gr-gap-0-1">
+                                                <img class="icon-2" src="/pics/icons/filled-star-icon.png">
+                                                <p class="t1 f1" th:text="${playsRatings.get(iter.index)}"></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="c3 gr-r gr-gap-1">
+                                        <div class="c3 gr-gap-1">
+                                            <div class="c3 gr-c gr-gap-1 align-between">
+                                                <a class="t1 f1 sm"
+                                                   th:href="@{/theatres/search/results/{name}/{id}(name=${play.theatre.name},id=${play.theatre.id})}"
+                                                   th:text="${play.theatre.name}">
+                                                </a>
+                                                <a class="t1 f1"
+                                                   th:href="@{/theatres/search/results/{name}/{id}(name=${play.theatre.name},id=${play.theatre.id})}">
+                                                    <img class="icon-2" src="/pics/icons/arrow-icon.png">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <form th:action="@{/select-play-date/{name}/{id}(name=${play.name},id=${play.id})}"
+                                              th:object="${play}" method="post">
+                                            <button type="submit" class="btn f5 c1">
+                                                БИЛЕТИ
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${#lists.isEmpty(playsResults)}">
+                                <p class="t2 f1">Няма налични постановки с търсените критерии.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div class="c3 gr-r gr-gap-2 column align-center">
+                <div class="c1 c2 align-center">
+                    <h1 class="t4 f7">Актьори</h1>
+                </div>
+                <div class="section align-center">
+                    <div class="c1 c2 align-center">
+                        <div class="box" th:each="actor,iter:${actorsResults}">
+                            <div class="c3 gr-r gr-gap-2 align-center">
+                                <a th:href="@{/actors/search/results/{name}/{id}(name=${actor.name},id=${actor.id})}"
+                                   class="logo-box c2 c1 gr-gap-2 align-center">
+                                    <img th:src="${actor.avatar.path}">
+                                    <div class="c3 gr-c gr-gap-2 res-tlt">
+                                        <p class="t3 t5 f1" th:text="${actor.name}"></p>
+                                        <div class="c3 gr-c gr-gap-0-1">
+                                            <img class="icon-2" src="/pics/icons/filled-star-icon.png">
+                                            <p class="t1 f1" th:text="${actorsRatings.get(iter.index)}"></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div th:if="${#lists.isEmpty(actorsResults)}">
+                            <p class="t2 f1">Няма налични актьори с търсените критерии.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div class="c3 gr-r gr-gap-2 column align-center">
+                <div class="c1 c2 align-center">
+                    <h1 class="t4 f7">Театри</h1>
+                </div>
+                <div class="section align-center">
+                    <div class="c1 c2 align-center theatre">
+                        <div class="box" th:each="theatre, iter:${theatreResults}">
+                            <div class="c3 gr-r gr-gap-2 align-center">
+                                <a th:href="@{/theatres/search/results/{name}/{id}(name=${theatre.name},id=${theatre.id})}"
+                                   class="logo-box c2 c1 gr-gap-2 align-center">
+                                    <img class="th-avatar" th:src="${theatre.avatar.path}">
+                                    <div class="c3 gr-c gr-gap-2 res-tlt">
+                                        <p class="t3 t5 f1" th:text="${theatre.name}"></p>
+                                        <div class="c3 gr-c gr-gap-0-1">
+                                            <img class="icon-2" src="/pics/icons/filled-star-icon.png">
+                                            <p class="t1 f1" th:text="${theatresRatings.get(iter.index)}"></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div th:if="${#lists.isEmpty(theatreResults)}">
+                            <p class="t2 f1">Няма налични театри с търсените критерии.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="base-fragment::menu"></div>
+</div>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

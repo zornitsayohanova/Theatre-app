@@ -1,0 +1,108 @@
+select, option {
+    color: #c6c2c2;
+    font-family: arial !important;
+    font-size: 1.4rem !important;
+}
+
+.select2-container {
+    //padding-left: 12px;
+    font-family: 'N', sans-serif;
+    line-height: inherit;
+    height: 60px;
+   // font-size: 1.6rem !important;
+    border: none;
+    outline: none;
+}
+
+.custom-select {
+    position: relative;
+    //font-size: 1.8rem !important;
+    width: 185px;
+    border-bottom: solid 1px #656565;
+}
+
+.custom-select select {
+    display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+    font-family: 'Playfair Display SC', sans-serif;
+// background-color: #214545;
+//  background-color: #103136;
+ //   background-color: rgb(19, 41, 48);
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #8880 transparent transparent transparent !important;
+}
+/*style the arrow inside the select element:*/
+.select-selected:after {
+    position: absolute;
+    content: "";
+    top: 30px;
+    right: 10px;
+    width: 0;
+    height: 0;
+ //   border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+    color: #ababab;
+    padding: 19px 0 12px 0 ;//20px 36px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    user-select: none;
+}
+
+.select-items div {
+    padding: 29px 0 12px 17px ;//20px 36px;
+    //-webkit-box-shadow: -3px 4px 3px -2px #0a0a0a;
+}
+/*style items (options):*/
+.select-items {
+    position: absolute;
+   // background-color: #183c41;
+   // background-color: #3c1e2a;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    font-family: Nunito;
+    font-size: 1.3rem;
+}
+
+.scrollbar {
+    overflow-y: scroll;
+    height: 160px;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+    display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+    background-color: rgb(19, 41, 48);
+}
+
+.theatre .select-items {
+    background-color: #1d2d3f;
+}
+
+.select2-container--default .select2-results > .select2-results__options {
+    max-height: 100px !important;
+    overflow-y: auto;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #ababab !important;
+}

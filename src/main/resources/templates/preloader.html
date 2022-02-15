@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link th:href="@{/css/shared.css}" rel="stylesheet"/>
+    <link th:href="@{/css/preloader.css}" rel="stylesheet"/>
+</head>
+<body>
+<section>
+    <div class="scroll sz1">
+        <h4><div>&nbsp;АКТЬОРИ АКТЬОРИ АКТЬОРИ</div><div>&nbsp;АКТЬОРИ АКТЬОРИ АКТЬОРИ</div></h4>
+    </div>
+    <div class="scroll sz2">
+        <h4><div>&nbsp;ТЕАТРИ ТЕАТРИ ТЕАТРИ</div><div>&nbsp;ТЕАТРИ ТЕАТРИ ТЕАТРИ</div></h4>
+    </div>
+    <div class="scroll sz3">
+        <h4><div>&nbsp;ПОСТАНОВКИ ПОСТАНОВКИ ПОСТАНОВКИ</div><div>&nbsp;ПОСТАНОВКИ ПОСТАНОВКИ ПОСТАНОВКИ</div></h4>
+    </div>
+</section>
+<div class="container">
+     <img class="full-logo-pic" src="/pics/icons/full-logo.png">
+</div>
+<script>
+   setTimeout(function () {
+        $(".loading-content").fadeOut('slow').delay(3800).fadeOut('slow');
+          window.location.replace("//localhost:8082/home");
+    }, 3800);
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+</body>
+</html>

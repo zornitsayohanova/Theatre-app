@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/favourite.css}" rel="stylesheet"/>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-dropdown.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-select2.css}" rel="stylesheet"/>
+    <link th:href="@{/css/plays.css}" rel="stylesheet"/>
+    <script>
+        $(document).ready(function() {
+            $("#e1").select2({
+                placeholder:"Постановка",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-1')
+            });
+        });
+    </script>
+</head>
+<body class="top blue">
+<div data-scroll-container>
+    <button data-scroll class="menu-btn open-modal show-menu">
+        <p>МЕНЮ</p>
+    </button>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div th:replace="base-fragment::menu"></div>
+    <div class="content">
+        <div data-scroll-section>
+            <div class="section c2">
+                <div class="c3 c4 gr-r gr-gap-3 fade" data-scroll>
+                    <span class="f1 t2 text-center" data-th-text="${message}"></span>
+                    <div class="c1 c2 align-center">
+                        <h1 class="t4 f3 text-left">Искаш да изгледаш конкретна постановка?</h1>
+                    </div>
+                    <form th:action="@{/target-play}" th:object="${play}" th:multiple="true" method="post">
+                        <div class="c3 c2 gr-gap-3 gr-r gr-gap-1">
+                            <div class="select2">
+                                <select id="e1" class="scrollbar" th:field="*{id}">
+                                    <option value=""></option>
+                                    <option th:each="play:${allPlays}"
+                                            th:value="${play.id}"
+                                            th:text="${play.name}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div data-scroll class="c1 align-end form-group">
+                                <button type="submit" class="btn f5">Набележи</button>
+                            </div>
+                        </div>
+                        <div id="parent-dropdown-1"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div data-scroll class="c3 gr-gap-2">
+                <div class="c1 c2 align-center">
+                    <h1 class="t4 f6">Набелязани постановки</h1>
+                </div>
+                <div class="section align-center">
+                    <div class="c1 c2 align-center">
+                        <div class="box" th:each="play:${targetedPlays}">
+                            <div class="logo-box c1 c3 gr-r gr-gap-2 align-center">
+                                <div class="c3 gr-r gr-gap-2">
+                                    <a class="c3 gr-r gr-gap-2"
+                                       th:href="@{/plays/search/results/{name}/{id}(name=${play.name},id=${play.id})}"
+                                       data-scroll>
+                                        <img th:src="${play.avatar.path}">
+                                        <div class="c3 gr-c gr-gap-1 res-tlt">
+                                            <p class="t3 t5 f1" th:text="${play.name}"></p>
+                                            <div class="c3 gr-c gr-gap-1 align-end">
+                                                <form th:action="@{/remove-targeted-play/{id}(id=${play.id})}" method="post">
+                                                    <button type="submit">
+                                                        <img class="icon-2" src="/pics/icons/close-icon.png">
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${#lists.isEmpty(targetedPlays)}">
+                            <p class="t2 f1">Няма резултати</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div data-scroll class="c3 gr-gap-2">
+                <div class="c1 c2 align-center">
+                    <h1 class="t4 f6">Изгледани постановки</h1>
+                </div>
+                <div class="section align-center">
+                    <div class="c1 c2 align-center">
+                        <div class="box" th:each="play:${watchedPlays}">
+                            <div class="logo-box c1 c3 gr-r gr-gap-2 align-center">
+                                <div class="c3 gr-r">
+                                    <a class="c3 gr-r gr-gap-2"
+                                       th:href="@{/plays/search/results/{name}/{id}(name=${play.name},id=${play.id})}"
+                                       data-scroll>
+                                        <img th:src="${play.avatar.path}">
+                                        <div class="c3 gr-r gr-gap-1">
+                                            <p class="t3 t5 f1" th:text="${play.name}"></p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${#lists.isEmpty(watchedPlays)}">
+                            <p class="t2 f1">Няма резултати</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

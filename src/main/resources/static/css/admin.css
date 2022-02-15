@@ -1,0 +1,334 @@
+body {
+    background-color: #313131 !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('/pics/admin-backgrounds/background.png');
+    scrollbar-width: none;
+    margin: 0;
+}
+
+body.top {
+    animation: none;
+}
+
+.top-icons {
+    padding: 1.5vw 3vw 1vw 3vw;
+}
+
+div {
+    scrollbar-color: rgba(46, 53, 65, 0) transparent !important;
+}
+
+.content {
+    margin-top: 0 !important;
+}
+
+.c5 {
+    justify-content: flex-end;
+}
+
+.blue-block {
+    opacity: 0;
+    background-color: #1E2532;
+    border-radius: 150px;
+    box-shadow: -10px 9px 76px 10px #4f5568;
+    padding: 3vw 0 3vw 8vw;
+    scrollbar-width: thin;
+    height: max-content;
+    animation-name: fadeInLeft;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.admin2 .blue-block {
+    padding: 3vw 8vw 3vw 8vw;
+}
+
+.msg {
+    color: #ff5353;
+}
+
+.gr-2 {
+    grid-template-columns: 4fr 2fr;
+}
+
+.gr-gap-1-2 {
+    grid-gap: 1.5rem;
+    width: 30vw;
+}
+
+.bck-circle {
+    opacity: 0;
+    z-index: -9;
+    position: absolute;
+    right: 9vw;
+    height: 38vw;
+    width: 40vw;
+    background-color: rgba(158, 158, 158, 0.2);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-left: -15vw;
+    animation-name: fadeInLeft;
+    animation-duration: 1s;
+    animation-delay: 0.60s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.content img {
+    opacity: 0;
+    height: 30vw;
+    border-radius: 50%;
+    width: 30vw;
+    margin-left: -10vw;
+    z-index: 90;
+    animation-name: fadeInLeft;
+    animation-duration: 1s;
+    animation-delay: 0.60s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.first-bck {
+    background-image: url('/pics/first.jpg');
+}
+
+.second-bck {
+    background-image: url('/pics/second.jpg');
+}
+
+.third-bck {
+    background-image: url('/pics/third.jpg');
+}
+
+.fourth-bck{
+    background-image: url('/pics/lp.jpg');
+}
+
+.fifth-bck{
+    background-image: url('/pics/fifth.png');
+}
+
+.ed-pc {
+    filter: contrast(85%);
+}
+
+.section {
+    align-content: flex-start;
+}
+
+.gr-gap-3 {
+    width: 100% !important;
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+}
+
+.select2 {
+    width: 30vw !important;
+}
+
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    display: -webkit-box;
+    padding-right: 10px;
+    display: block !important;
+    margin: 0 !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    font-family: 'Nunito' !important;
+    font-size: 1.4rem !important;
+    text-transform: none;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+    color: inherit;
+    height: 28px !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border: solid 1px #7a7a7a;
+    background-color: transparent;
+}
+
+.fl-c {
+    display: flex;
+    flex-direction: column;
+}
+
+.selection {
+    width: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 0
+}
+
+#main-scrollbar {
+    width: auto;
+    height: 100vh;
+    overflow: auto;
+    margin: 0;
+}
+
+.scrollbar-track {
+    position: absolute;
+    background: rgba(222, 222, 222, 0) !important;
+}
+
+input {
+    height: 30px;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    font-size: 1.4rem;
+    padding-right: 0;
+    padding-left: 10px;
+    color: #ababab !important;
+}
+
+p, div {
+    font-family: Nunito;
+}
+
+::placeholder {
+    color: inherit;
+    opacity: 1;
+    font-family: nunito;
+    font-size: 1.4rem;
+}
+
+textarea, textarea::placeholder {
+    background: transparent !important;
+    border: none;
+}
+
+textarea {
+    width: -webkit-fill-available;
+    width: -moz-available;
+    padding: 20px 0 20px 6px;
+    border: solid 1px #6a6a6a;
+    outline: #f000;
+}
+
+.c3 {
+    align-content: flex-start;
+}
+
+.select2-container {
+   display: flex !important;
+}
+
+.b-0 .select2-container {
+    border: none;
+    padding: 0 !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: transparent !important;
+    padding-left: 30px !important;
+    width: max-content;
+}
+
+.select2 #file {
+    height: auto;
+}
+/*.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+    color: #333 !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover,
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
+    background-color: #656565 !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    padding: 0 6px;
+    border-right: none !important
+}
+
+.select2-results__option {
+    background-color: #000 !important;
+}
+
+.select2-dropdown {
+    background-color: #000 !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    background-color: #000 !important;
+}
+
+.select2-results__option--highlighted[aria-selected] {
+    background-color: #474747 !important;
+}
+
+.scrollbar,
+.scrollbar:focus {
+    scrollbar-color: #6d6d6d #101d2c;
+}*/
+
+::-webkit-scrollbar-thumb {
+    background-color: #101d2c;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.select2-results__options::-webkit-scrollbar {
+    width: auto !important;
+}
+
+.select2-results__options::-webkit-scrollbar-thumb {
+    background-color: #878787 !important;
+}
+
+.select2-results {
+    scrollbar-color: #878787 transparent !important;
+}
+
+.btn {
+    margin-top: 20px;
+    justify-self: flex-end;
+}
+
+.dropdown-content {
+    padding: 0 !important;
+    background-color: rgba(57, 57, 57, 0) !important;
+    border-radius: 30px;
+}
+
+.dropdown-content .nav-link {
+    font-size: 1.2rem !important;
+    letter-spacing: normal !important;
+}
+
+.dropdown button {
+    height: 50px;
+    display: flex;
+}
+
+.sm {
+    font-style: italic;
+}
+
+@media only screen and (max-width: 900px) {
+  .form-box {
+      width: 100%;
+  }
+}

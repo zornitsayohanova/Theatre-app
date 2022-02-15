@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html">
+<head>
+    <th:block th:include="admin-menu-fragment::head"></th:block>
+</head>
+<body class="top blue">
+<div th:replace="admin-menu-fragment::top-icons"></div>
+<div class="content">
+    <div class="section column">
+        <div class="c3 gr-c gr-2">
+            <div class="blue-block align-start c3 gr-2">
+                <form th:action="@{/choose-won-seats}" method="post" class="c3 gr-gap-1-2">
+                    <div class="c1 c5 gr-gap-1">
+                        <p class="t3 f6 c2 text-left">Спечелени места за</p>
+                        <p th:text="${#dates.format(game.timeOfCreation, 'dd-MM-yyyy')}" class="t3 f1 c2 text-left"></p>
+                        <div th:if="${#lists.isEmpty(selectedPlaySeats)}" class="c3 c2 gr-r gr-gap-3" style="margin-bottom: 6vw;">
+                            <p class="t2 f1 sm">При натискане на бутона ще бъдат избрани и дадени на победителя
+                                2 билета, на случаен принцип, за представление в София</p>
+                            <div class="t1 f1 sm msg c2 text-left" th:text="${message}"></div>
+                            <button type="submit" class="t3 f5 btn" data-scroll>Избери</button>
+                        </div>
+                        <div th:if="${not #lists.isEmpty(selectedPlaySeats)}" class="c3 c2 gr-r gr-gap-1">
+                            <div class="c3 gr-gap-3" style="margin-bottom: 6vw;">
+                                <div class="c3 gr-gap-2 gr-r" th:each="selectedPlaySeat:${selectedPlaySeats}">
+                                    <div class="c3 gr-r gr-gap-2">
+                                        <a class="t3 f2 text-left"
+                                           th:text="${selectedPlaySeat.getPlaySeat().play.name}"
+                                           th:href="@{/plays/{name}/{id}(name=${selectedPlaySeat.getPlaySeat().play.name}, id=${selectedPlaySeat.getPlaySeat().play.id})}">
+                                        </a>
+                                        <div class="c3 gr-c gr-gap-2 align-start">
+                                            <p class="t3 f1" th:text="${#dates.format(selectedPlaySeat.getPlaySeat().date, 'dd/MM/yyyy')}"></p>
+                                        </div>
+                                        <div class="c3 gr-c gr-gap-1 space-evenly">
+                                            <div class="c3 gr-c gr-gap-1 align-start">
+                                                <p class="t1 f2" th:text="'Място'"></p>
+                                                <p class="seat" th:text="${selectedPlaySeat.getPlaySeat().seatIdentifier}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <img src="/pics/admin-backgrounds/third.jpg">
+        </div>
+        <div class="bck-circle"></div>
+    </div>
+</div>
+</body>
+<script>
+    $(document).ready(function() {
+        Scrollbar.init(document.getElementById("main-scrollbar"), { damping: 0.1, delegateTo: document });
+    })
+</script>
+</html>

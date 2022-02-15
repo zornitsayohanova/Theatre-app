@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+</head>
+<body class="top purple">
+<div data-scroll-container>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div class="content">
+        <div data-scroll-section>
+            <div class="section align-center">
+                <div class="c1 c2 align-center theatre">
+                    <div class="box" th:each="theatre, iter:${theatreResults}">
+                        <div class="c3 gr-r gr-gap-2 align-center">
+                            <a th:href="@{/theatres/search/results/{name}/{id}(name=${theatre.name},id=${theatre.id})}"
+                               class="logo-box c2 c1 gr-gap-2 align-center">
+                                <img class="th-avatar" th:src="${theatre.avatar.path}">
+                                <div class="c3 gr-c gr-gap-2 res-tlt">
+                                    <p class="t3 t5 f1" th:text="${theatre.name}"></p>
+                                    <div class="c3 gr-c gr-gap-0-1">
+                                        <img class="icon-2" src="/pics/icons/filled-star-icon.png">
+                                        <p class="t1 f1"
+                                           th:text="${#numbers.formatDecimal(theatresRatings.get(iter.index), 0, 'COMMA', 1, 'POINT')}">
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div th:if="${#lists.isEmpty(theatreResults)}">
+                        <p class="t2 f1">Няма налични резултати. Моля, променете своето търсене!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="base-fragment::menu"></div>
+</div>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>
+
+
+
+
+
+

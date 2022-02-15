@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/favourite.css}" rel="stylesheet"/>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+</head>
+<body class="top purple">
+<div data-scroll-container>
+    <button data-scroll class="menu-btn open-modal show-menu">
+        <p>МЕНЮ</p>
+    </button>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div th:replace="base-fragment::menu"></div>
+    <div class="content">
+        <div data-scroll-section>
+            <div data-scroll class="c3 gr-gap-1">
+                <div class="c1 c2 align-center">
+                    <h1 class="t4 f6">Любими театри</h1>
+                </div>
+                <div class="section align-center">
+                    <div class="c1 c2 align-center">
+                        <div class="box" th:each="theatre:${favouriteTheatres}">
+                            <div class="c3 gr-r gr-gap-2 align-center">
+                                <div class="c3 gr-r gr-gap-2">
+                                    <a class="c3 gr-r gr-gap-2"
+                                       th:href="@{/theatres/{name}/{id}(name=${theatre.name},id=${theatre.id})}"
+                                       data-scroll>
+                                        <div class="c1 align-center">
+                                            <img class="th-avatar" th:src="${theatre.avatar.path}">
+                                        </div>
+                                        <div class="c3 gr-c gr-gap-1 res-tlt">
+                                            <p class="t3 t5 f1" th:text="${theatre.name}"></p>
+                                            <div class="c3 gr-c gr-gap-1 align-end">
+                                                <form th:action="@{/remove-theatre-from-favourites-list/{name}/{id}(name=${theatre.name},id=${theatre.id})}"
+                                                      method="post">
+                                                    <button type="submit">
+                                                        <img class="icon-2" src="/pics/icons/close-icon.png">
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${#lists.isEmpty(favouriteTheatres)}">
+                            <p class="t2 f1">Няма резултати</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

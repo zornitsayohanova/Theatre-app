@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/favourite.css}" rel="stylesheet"/>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+</head>
+<body class="top green">
+<div data-scroll-container>
+    <button data-scroll class="menu-btn open-modal show-menu">
+        <p>МЕНЮ</p>
+    </button>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div th:replace="base-fragment::menu"></div>
+    <div class="content">
+        <div data-scroll-section>
+            <div data-scroll class="c3 gr-gap-1">
+                <div class="c1 c2 align-center">
+                    <h1 class="t4 f6">Любими актьори</h1>
+                </div>
+                <div class="section align-center">
+                    <div class="c1 c2 align-center">
+                        <div class="box" th:each="actor:${favouriteActors}">
+                            <div class="logo-box c3 gr-r gr-gap-2 align-center">
+                                <div class="c3 gr-r">
+                                    <a class="c3 gr-r gr-gap-2"
+                                       th:href="@{/actors/{name}/{id}(name=${actor.name},id=${actor.id})}"
+                                       data-scroll>
+                                        <img th:src="${actor.avatar.path}">
+                                        <div class="c3 gr-c gr-gap-1 res-tlt">
+                                            <p class="t3 t5 f1" th:text="${actor.name}"></p>
+                                            <div class="c3 gr-c gr-gap-1 align-end">
+                                                <form th:action="@{/remove-actor-from-favourites-list/{name}/{id}(name=${actor.name},id=${actor.id})}"
+                                                      method="post">
+                                                    <button type="submit">
+                                                        <img class="icon-2" src="/pics/icons/close-icon.png">
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${#lists.isEmpty(favouriteActors)}">
+                            <p class="t2 f1">Няма резултати</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

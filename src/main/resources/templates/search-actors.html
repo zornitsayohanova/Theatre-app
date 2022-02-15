@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/actors.css}" rel="stylesheet"/>
+    <link th:href="@{/css/background-zoom-effect.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-dropdown.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-select2.css}" rel="stylesheet"/>
+    <link th:href="@{/css/search-pages.css}" rel="stylesheet"/>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.6.1/jquery.lettering.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/textillate/0.4.0/jquery.textillate.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#e1").select2({
+                placeholder: "Име",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-1')
+            });
+            $("#e2").select2({
+                placeholder: "Театър",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-2')
+            });
+            $("#e3").select2({
+                placeholder: "Вид",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-3')
+            });
+        });
+    </script>
+</head>
+<body class="top green">
+<div data-scroll-container>
+    <header th:replace="base-fragment::top-icons"></header>
+    <div class="scroller">
+        <img src="/pics/icons/scroll-icon.png" class="rotate">
+    </div>
+    <div class="content">
+        <div data-scroll-section>
+            <div class="section">
+                <div class="c2 column c6">
+                    <div class="background">
+                        <div class="background-picture" data-scroll>
+                            <img src="/pics/page-theme-backgrounds/actors-background.jpg">
+                        </div>
+                    </div>
+                    <h2 class="tlt f3" data-scroll>АКТЬОРИ.</h2>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div class="section">
+                <div class="c1 c2" data-scroll>
+                    <form th:action="@{search/results}" th:object="${actor}" method="post">
+                        <div data-scroll class="c3 gr-5 gr-gap-4 form-box align-start">
+                            <p class="c2 f1 t2 sm">Изберете едно или повече</p>
+                            <div class="c3 gr-4 gr-gap-3">
+                                <div class="form-group fade-left" data-scroll>
+                                    <div class="select2">
+                                        <select id="e1" class="scrollbar" th:field="*{id}">
+                                            <option value=""></option>
+                                            <option th:each="actor:${allActors}"
+                                                    th:value="${actor.id}"
+                                                    th:text="${actor.name}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group fade-left" data-scroll>
+                                    <div class="select2">
+                                        <select id="e2" class="scrollbar" th:field="*{theatre}">
+                                            <option value=""></option>
+                                            <option th:each="theatre:${allTheatres}"
+                                                    th:value="${theatre.id}"
+                                                    th:text="${theatre.name}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group fade-left" data-scroll>
+                                    <div class="select2">
+                                        <select id="e3" class="scrollbar" th:field="*{actorGender}">
+                                            <option value=""></option>
+                                            <option th:each="actorGender:${allGenders}"
+                                                    th:value="${actorGender.id}"
+                                                    th:text="${actorGender.name}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="parent-dropdown-1"></div>
+                                <div id="parent-dropdown-2"></div>
+                                <div id="parent-dropdown-3"></div>
+                            </div>
+                            <button type="submit" class="btn f5 fade-right" data-scroll>Търси</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="base-fragment::menu"></div>
+</div>
+<script>
+    $('.tlt').textillate({initialDelay: 30, in: { effect: 'fadeInUp'}});
+</script>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

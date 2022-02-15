@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html">
+<head>
+    <th:block th:include="admin-menu-fragment::head"></th:block>
+    <script>
+        $(document).ready(function() {
+            $('#e1').select2({
+                placeholder: "Категория",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-1')
+            });
+        });
+    </script>
+</head>
+<body class="top blue">
+<div th:replace="admin-menu-fragment::top-icons"></div>
+<div class="content">
+    <div class="section column">
+        <div class="c3 gr-c gr-2">
+            <div class="blue-block align-start c3 gr-2">
+                <form th:action="@{/add-picture}" th:object="${picture}" method="post" class="c3 gr-gap-1-2" enctype="multipart/form-data">
+                    <p class="t3 f6">Добавяне на снимка</p>
+                    <div class="c1 c5 gr-gap-1">
+                        <div class="t1 f1 sm msg c2 text-left" th:text="${message}"></div>
+                        <div class="c3 c2 gr-r gr-gap-3">
+                            <div class="form-group select2">
+                                <label class="t3 f5 btn" for="file">Снимка</label>
+                                <input hidden type="file" id="file" th:field="*{file}" name="file">
+                            </div>
+                            <div class="form-group select2">
+                                <textarea placeholder="Име (напр. Народен театър ''Иван Вазов'' - 1)" th:field="*{name}"></textarea>
+                            </div>
+                            <div class="form-group select2 select2-container">
+                                <input placeholder="Име на папката" th:field="*{folderName}">
+                            </div>
+                            <div class="form-group">
+                                <div class="select2">
+                                    <select id="e1" class="scrollbar" th:field="*{selectedCategory}">
+                                        <option value=""></option>
+                                        <option th:each="category:${picture.categories}"
+                                                th:value="${category}"
+                                                th:text="${category}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="parent-dropdown-1"></div>
+                        </div>
+                        <button type="submit" class="t3 f5 btn" data-scroll>Добави</button>
+                    </div>
+                </form>
+            </div>
+            <img src="/pics/admin-backgrounds/sixth.jpg">
+        </div>
+        <div class="bck-circle"></div>
+    </div>
+</div>
+</body>
+<script>
+    $(document).ready(function() {
+        Scrollbar.init(document.getElementById("main-scrollbar"), { damping: 0.1, delegateTo: document });
+    })
+</script>
+</html>

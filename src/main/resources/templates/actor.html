@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/result.css}" rel="stylesheet"/>
+    <link th:href="@{/css/gallery.css}" rel="stylesheet"/>
+    <link th:href="@{/css/rating.css}" rel="stylesheet"/>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.6.1/jquery.lettering.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/textillate/0.4.0/jquery.textillate.js"></script>
+</head>
+<body class="top green">
+<div data-scroll-container>
+    <button class="menu-btn open-modal show-menu" data-scroll >
+        <p>МЕНЮ</p>
+    </button>
+    <div class="scroller">
+        <img src="/pics/icons/scroll-icon.png" class="rotate">
+    </div>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div data-scroll class="options">
+        <div id="myModal" class="modal">
+            <p class="close">X</p>
+            <div class="modal-content grn">
+                <div class="t2 f1" th:each="play:${actorPlays}">
+                    <a th:href="@{/plays/{name}/{id}(name=${play.name},id=${play.id})}" th:text="${play.name}"></a>
+                    <br><br>
+                </div>
+                <div class="f1 t2" th:if="${#lists.isEmpty(actorPlays)}">
+                    <p>Няма постановки, с участието на този актьор.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ratingModal" class="modal" data-scroll>
+        <p class="close">X</p>
+        <div class="modal-content">
+            <form th:action="@{/rate-actor/{name}/{id}(name=${actor.name},id=${actor.id})}"
+                  th:object="${rating}"
+                  method="post">
+                <div class="c3 c2 gr-r gr-gap-3 align-center">
+                    <div sec:authorize="hasAuthority('USER')" class="c3 gr-r gr-gap-2" th:if="${userGivenRating != -1}">
+                        <p class="t2 f1 sm">Вашата настояща оценка е: </p>
+                        <p class="t3 f2" th:text="${userGivenRating}"></p>
+                    </div>
+                    <div class="c3 gr-r gr-gap-2">
+                        <p class="f1 t2 sm">Оценете</p>
+                        <p class="f2 t3 c2" th:text="${actor.getName()}"></p>
+                        <div class="c1 c2 align-center">
+                            <button type="submit">
+                                <div class="star-wrapper">
+                                    <div class="fas fa-star s5">
+                                        <input type="radio" th:field="*{stars}" id="star5" name="rate" value="5" />
+                                    </div>
+                                    <div class="fas fa-star s4">
+                                        <input type="radio" th:field="*{stars}" id="star4" name="rate" value="4" />
+                                    </div>
+                                    <div class="fas fa-star s3">
+                                        <input type="radio" th:field="*{stars}" id="star3" name="rate" value="3" />
+                                    </div>
+                                    <div class="fas fa-star s2">
+                                        <input type="radio" th:field="*{stars}" id="star2" name="rate" value="2" />
+                                    </div>
+                                    <div class="fas fa-star s1">
+                                        <input type="radio" th:field="*{stars}" id="star1" name="rate" value="1" />
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="content" th:object="${actor}">
+        <div data-scroll-section>
+            <div class="section">
+                <div class="c3 gr-r gr-gap-2 c2 align-end">
+                    <div class="ov-h c2 align-center">
+                        <div class="slide-up" data-scroll>
+                            <h1 class="f3" th:text="${actor.name}"></h1>
+                        </div>
+                    </div>
+                    <div class="c3 gr-5 gr-gap-2 c2 align-end" data-scroll>
+                        <p class="t1 f1 sm text-right"
+                           th:text="'Рейтинг на актьор: ' + ${#numbers.formatDecimal(actorRating, 0, 'COMMA', 1, 'POINT')}">
+                        </p>
+                        <div class="c3 gr-c gr-gap-1 align-end" data-scroll>
+                            <div th:if="${userLikedActor == true}">
+                                <form th:action="@{/remove-actor-from-favourites/{name}/{id}(name=${actor.name},id=${actor.id})}"
+                                      method="post" >
+                                    <button type="submit">
+                                        <img class="icon" src="/pics/icons/filled-heart-icon.png">
+                                    </button>
+                                </form>
+                            </div>
+                            <div th:if="${userLikedActor == false}">
+                                <form th:action="@{/add-actor-to-favourites/{name}/{id}(name=${actor.name},id=${actor.id})}"
+                                      method="post" >
+                                    <button type="submit">
+                                        <img class="icon" src="/pics/icons/unfilled-heart-icon.png">
+                                    </button>
+                                </form>
+                            </div>
+                            <button id="edit-btn">
+                                <div th:if="${userGivenRating > 0}">
+                                    <img class="icon" src="/pics/icons/filled-star-icon.png">
+                                </div>
+                                <div th:if="${userGivenRating == 0}">
+                                    <img class="icon" src="/pics/icons/unfilled-star-icon.png">
+                                </div>
+                            </button>
+                        </div>
+                        <div class="c1 gr-gap3 align-end gr-gap-1 fade-up" data-scroll>
+                            <form th:action="@{/get-actor-news/{name}/{id}(name=${actor.name},id=${actor.id})}" method="get">
+                                <div class="form-group" data-scroll>
+                                    <button type="submit" class="btn f5">Новини</button>
+                                </div>
+                            </form>
+                            <div class="form-group" data-scroll>
+                                <button type="submit" id="action-btn" class="btn f5 open-modal show-plays">Постановки</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div class="section">
+                <div class="c1 c2 align-center">
+                    <div class="title-wrapper">
+                        <div class="c1" data-scroll data-scroll-speed="3">
+                            <span class="f4 section-title">БИО</span>
+                            <div class="ov-h">
+                                <span class="c1 f4 section-title fill fade-left" data-scroll>ГРА</span>
+                            </div>
+                            <div class="ov-h">
+                                <span class="c1 f4 section-title fill fade-left" data-scroll>ФИЯ</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="c1 img-wrapper to-left">
+                        <div class="img-detect" data-scroll>
+                            <img class="sec-pic-1 fade" data-scroll
+                                 th:src="${actorGallery.get(1).path}"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div class="section">
+                <div class="ov-h c1 c2 align-center">
+                    <div class="slide-up c-half" data-scroll>
+                        <span class="t2 f1 txt" th:text="${actor.bio}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div class="section gallery">
+                <div data-scroll data-scroll-speed="2" data-scroll-direction="horizontal" class="gallery-container">
+                    <div class="box" th:each="pic, iter:${actorGallery}">
+                        <img th:src="${pic.path}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="base-fragment::menu"></div>
+</div>
+<script>
+    $(document).ready(function() {
+        var modal = $('#ratingModal');
+
+        $('#edit-btn').click(function () {
+            modal.delay(200).fadeIn();
+        });
+
+        $('.close').click(function () {
+            modal.delay(200).fadeOut();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        var modal = $('#myModal');
+        var ul = $('#ul')
+
+        $('#action-btn').click(function () {
+            modal.delay(200).fadeIn();
+            ul.css("display", "none");
+        });
+
+        $('.close').click(function () {
+            modal.delay(200).fadeOut();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        var modal = $('#plays-modal');
+        $('.show-plays').click(function () {
+            modal.show();
+            $('#plays-content').delay(100).fadeIn();
+        });
+
+        $('.close-modal').on('click', function () {
+            $('#plays-content').hide();
+            modal.hide();
+        });
+    });
+</script>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

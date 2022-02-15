@@ -1,0 +1,54 @@
+$pages: 5;
+$step: 360deg / $pages;
+$color: limegreen;
+
+@for $i from 0 through $pages {
+  .page:nth-child(#{$i}) {
+    background: adjust-hue($color, $step * $i);
+    color: complement(adjust-hue($color, $step * $i));
+  }
+}
+
+body {
+  font: bold 10vh * 3 "Arial", sans-serif;
+  margin: 0;
+}
+
+.scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: absolute;
+  transform: rotate(270deg) translateX(-100%);
+  transform-origin: top left;
+  height:100vw;
+  width:100vh;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat($pages, 1fr);
+  transform: rotate(90deg) translateY(-100vh);
+  transform-origin: top left;
+}
+
+.page {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  &:first-of-type {
+    &:before {
+      color: rgba(white, .5);
+      content: "scroll";
+      margin: 0 .5rem;
+    }
+  }
+  &:last-of-type {
+    &:after {
+      color: rgba(white, .5);
+      content: "end";
+      margin: 0 .5rem;
+    }
+  }
+}

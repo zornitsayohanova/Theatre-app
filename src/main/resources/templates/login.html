@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Вход</title>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/entrance.css}" rel="stylesheet"/>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-select2.css}" rel="stylesheet"/>
+</head>
+<body class="top blue">
+<div data-scroll-container>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div class="content entrance" id="user-content" data-scroll>
+        <div class="modal-content" data-scroll-section>
+            <form th:action="@{/login}" method="post" class="c3 c2 gr-r gr-gap-3 align-center">
+                <section id="messages">
+                    <div data-th-if="${message}" class="f1 t2" role="alert">
+                        <span class="f1 t2" data-th-text="${message}"></span>
+                    </div>
+                </section>
+                <h1 class="f3 t4 text-left">Вход</h1>
+                <div class="form-group select2 select2-container">
+                    <input type="text" placeholder="Потребителско име" class="f1 t2 sm" id="username" name="username">
+                </div>
+                <div class="form-group select2 select2-container">
+                    <input type="password" placeholder="Парола" class="f1 t2 sm" id="password" name="password">
+                </div>
+                <div class="c1 align-end form-group">
+                    <button type="submit" class="btn f5">
+                        <img class="icon-2" src="/pics/icons/arrow-icon.png">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div data-scroll-section th:replace="base-fragment::menu"></div>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

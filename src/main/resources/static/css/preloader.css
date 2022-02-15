@@ -1,0 +1,116 @@
+body {
+    display: flex;
+    justify-content: center;
+    background-color: #142736;
+}
+
+p, div, button, a, input, select {
+    color: inherit;
+}
+
+.full-logo-pic {
+    opacity: 0;
+    height: 4.5vw;
+    margin-top: 40px;
+    animation-name: fadeIn;
+    animation-delay: 2.9s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.container {
+    opacity: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    height: 35vw;
+    width: 50vw;
+    background: transparent;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    align-items: flex-start;
+    background: url("/pics/page-theme-backgrounds/preloader-pic.jpg");
+    background-size: cover;
+    animation-name: fadeIn;
+    animation-delay: 0.9s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+.sz1 {
+    font-size: 14vw;
+    -webkit-text-stroke: 2px #374853;
+    color: transparent;
+}
+
+.sz2 {
+    font-size: 5.6vw;
+    font-family: anticva;
+    font-style: italic;
+}
+
+.sz3 {
+    opacity: 0;
+    animation-name: fadeIn;
+    animation-iteration-count: 1;
+    animation-delay: 2.1s;
+    animation-timing-function: ease-in-out;
+    animation-duration: 0.8s;
+    animation-fill-mode: forwards;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    font-size: 2.8vw;
+    font-family: arial;
+    color: #959da1;
+}
+
+section {
+    height: 100%;
+    width: 100vw;
+    font-family: Arial;
+    color: #374853;
+    margin-top: 10vw;
+}
+
+.scroll {
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+h4 {
+    display: flex;
+    text-transform: uppercase;
+    word-spacing: 3rem;
+    animation: scroll 40s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    } to {
+         transform: translateX(-50%);
+     }
+}
+

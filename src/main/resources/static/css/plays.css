@@ -1,0 +1,27 @@
+.blue .select2-results__option {
+    background-color: #101d2c !important;
+}
+
+.blue .select2-dropdown {
+    background-color: #101d2c !important;
+}
+
+.blue .select2-container--default .select2-search--dropdown .select2-search__field {
+    background-color: #101d2c !important;
+}
+
+.blue .select2-results__option--highlighted[aria-selected] {
+    background-color: #2f3d4c !important;
+}
+
+.blue .scrollbar,
+.blue .scrollbar:focus {
+    scrollbar-color: #6d6d6d #101d2c;
+}
+
+.blue ::-webkit-scrollbar-track {
+    background-color: #101d2c;
+}
+
+
+

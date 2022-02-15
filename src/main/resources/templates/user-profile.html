@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-dropdown.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-select2.css}" rel="stylesheet"/>
+    <link th:href="@{/css/entrance.css}" rel="stylesheet"/>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+</head>
+<body class="top blue">
+<div data-scroll-container>
+    <button data-scroll class="menu-btn open-modal show-menu">
+        <p>МЕНЮ</p>
+    </button>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div th:replace="base-fragment::menu"></div>
+    <div class="content entrance" style="margin-top: 0">
+        <div data-scroll-section>
+            <div class="section c2">
+                <div id="user-content" class="c3 c4 gr-r gr-gap-3 fade" data-scroll>
+                    <span class="f1 t2 text-center" th:text="${message}"></span>
+                    <div class="c3 c2 gr-r gr-gap-3 align-center">
+                        <div class="c1 c2 align-center">
+                            <form action="#" th:action="@{/update-user}" th:object="${newUser}" method="post" class="c3 c2 gr-r gr-gap-3 align-center">
+                                <h1 class="t4 f3 text-left">Променете едно или повече</h1>
+                                <div class="form-group select2 select2-container">
+                                    <input type="email" th:field="*{email}"
+                                           placeholder="Нова имейл" name="email"
+                                           class="f1 t2 sm" required="required"
+                                           value=""
+                                    />
+                                </div>
+                                <div class="form-group select2 select2-container">
+                                    <input type="text" th:field="*{username}"
+                                           placeholder="Ново име" name="username"
+                                           class="f1 t2 sm" required="required"
+                                           value=""
+                                    />
+                                </div>
+                                <div class="form-group select2 select2-container">
+                                    <input type="password" th:field="*{password}"
+                                           placeholder="Нова парола" name="password"
+                                           class="f1 t2 sm" required="required"
+                                           value=""
+                                    />
+                                </div>
+                                <div class="c1 align-end form-group">
+                                    <button type="submit" class="btn f5">Промени</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="c3 c2 gr-r gr-gap-3 align-center">
+                        <div class="c1 c2 align-center">
+                            <h1 class="t4 f3 text-left">Изтриване на профила</h1>
+                        </div>
+                        <form th:action="@{/remove-profile}" method="post">
+                            <input type="text" name="id" hidden th:value="${user.id}">
+                            <div class="c3 c2 gr-gap-3 gr-r gr-gap-1">
+                                <div data-scroll class="c1 align-end form-group">
+                                    <button type="submit" class="btn f5">Изтрий</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

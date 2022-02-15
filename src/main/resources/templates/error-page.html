@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <title>Неразрешен достъп</title>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+</head>
+<body class="top blue">
+<div class="unauthorized block">
+    <div class="c3 align-center gr-r">
+        <h4 sec:authorize="hasAuthority('ADMIN1')" class="f6 t3 text-center">Неразрешен достъп!</h4>
+        <h4 sec:authorize="hasAnyAuthority('ADMIN2','USER')" class="f7 t3 text-center" th:text="${message}"></h4>
+        <a sec:authorize="hasAuthority('ADMIN1')" href="/add-play-date">
+            <button>
+                <button type="submit" class="btn f5" style="rotate: 180deg;">
+                    <img class="icon-2" src="/pics/icons/arrow-icon.png">
+                </button>
+            </button>
+        </a>
+        <a sec:authorize="hasAuthority('ADMIN2')" href="/find-user">
+            <button>
+                <button type="submit" class="btn f5" style="rotate: 180deg;">
+                    <img class="icon-2" src="/pics/icons/arrow-icon.png">
+                </button>
+            </button>
+        </a>
+        <a sec:authorize="hasAuthority('USER')" href="/home">
+            <button type="submit" class="btn f5" style="rotate: 180deg;">
+                <img class="icon-2" src="/pics/icons/arrow-icon.png">
+            </button>
+        </a>
+    </div>
+</div>
+</body>
+</html>

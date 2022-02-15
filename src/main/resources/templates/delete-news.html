@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html">
+<head>
+    <th:block th:include="admin-menu-fragment::head"></th:block>
+    <script>
+        $(document).ready(function() {
+            $('#e1').select2({
+                placeholder: "Новина",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-1')
+            });
+        });
+    </script>
+</head>
+<body class="top blue">
+<div th:replace="admin-menu-fragment::top-icons"></div>
+<div class="content">
+    <div class="section column">
+        <div class="c3 gr-c gr-2">
+            <div class="blue-block align-start c3 gr-2">
+                <form th:action="@{/delete-news}" th:object="${news}" method="post" class="c3 gr-gap-1-2">
+                    <p class="t3 f6">Изтриване на новина</p>
+                    <div class="c1 c5 gr-gap-1">
+                        <div class="t1 f1 sm msg c2 text-left" th:text="${message}"></div>
+                        <div class="c3 c2 gr-r gr-gap-3">
+                            <div class="form-group">
+                                <div class="select2">
+                                    <select id="e1" class="scrollbar" th:field="*{id}">
+                                        <option value=""></option>
+                                        <option th:each="news:${allNews}"
+                                                th:value="${news.id}"
+                                                th:text="${news.title}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="parent-dropdown-1"></div>
+                        </div>
+                        <button type="submit" class="t3 f5 btn" data-scroll>Изтриване</button>
+                    </div>
+                </form>
+            </div>
+            <img src="/pics/admin-backgrounds/second.jpg">
+        </div>
+        <div class="bck-circle"></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        Scrollbar.init(document.getElementById("main-scrollbar"), { damping: 0.1, delegateTo: document });
+    })
+</script>
+</body>
+</html>

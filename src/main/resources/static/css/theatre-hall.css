@@ -1,0 +1,206 @@
+#main-scrollbar{
+    width: auto;
+    height: 100vh;
+    overflow: auto;
+    margin: 0;
+}
+
+section {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.scrollbar-track {
+    position: absolute;
+    background: rgba(222, 222, 222, 0) !important;
+}
+
+.title-box {
+    background-color: #526577;
+    padding: 1vw;
+}
+
+.s {
+    margin-bottom: 0;
+}
+
+::-webkit-scrollbar{
+    width: 0;
+}
+
+.align-start {
+    align-items: flex-start;
+}
+
+.align-center {
+    justify-items: center;
+    align-items: center;
+}
+
+ul {
+    margin-top: 0;
+}
+
+#navbar {
+    left: 0;
+}
+
+.gr-gap-1 {
+    grid-gap: 0.5rem;
+}
+
+.seat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    margin: 0 6px 0 6px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    position: relative;
+    color: #b0b0b0;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    font-size: 1.2rem;
+    font-family: Ubuntu;
+    border-radius: 40px;
+    box-shadow: 0 2px 6px 1px rgb(122, 122, 122);
+    border: solid 1px #363f48;
+}
+
+.p-color {
+    color: #989a9c;
+}
+
+.content {
+    margin-top: 4%;
+}
+
+.btn {
+    text-align: center;
+    width: max-content !important;
+}
+
+p {
+    margin-top: 0;
+}
+
+.h {
+    height: 100%;
+}
+
+.space-evenly {
+    justify-content: space-evenly;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.select2 {
+    width: 100%!important;
+}
+
+.select2-results__option--highlighted[aria-selected] {
+    display: flex;
+}
+
+input[type="checkbox"] {
+    height: 30px;
+    width: 30px;
+}
+
+.container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border: solid 1px;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: rgba(33, 150, 243, 0);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+@media only screen and (max-width: 900px) {
+    .top-icons {
+    //    margin: 12px 0 10px 0 !important;
+      //  transition: none !important;
+      //  padding: 0 10px !important;
+    }
+
+    .btn {
+        width: 100% !important;
+    }
+
+    .tb {
+        padding-bottom: 25px;
+        border-bottom: solid 1px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .select2-container {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 550px) and (max-width: 900px) {
+    .menu-icon {
+    //    width: 8vw !important;
+    //    height: 8vw !important;
+    }
+}

@@ -1,0 +1,177 @@
+
+.fade-up {
+    opacity: 0;
+    transition: all 1s cubic-bezier(.215, .61, .355, 1);
+    transform: translate3d(0, 100px, 0);
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInLeft2 {
+    0% {
+        opacity: 0;
+        transform: translateX(-80px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-up.is-inview{
+    opacity: 1;
+    transform: translateX(0px);
+}
+
+.fade-right{opacity: 0; transition: all 1s cubic-bezier(.215, .61, .355, 1);transform: translateX(30%);transition-delay: 900ms;}
+.fade-right.is-inview{opacity: 1;transform: translateX(0px);}
+
+.fade-left{opacity: 0; transition: all 1s cubic-bezier(.215, .61, .355, 1);transform: translateX(-30%);transition-delay: 900ms;}
+.fade-left.is-inview{opacity: 1;transform: translateX(0px);}
+
+.fade-down{opacity: 0; transition: all 1s cubic-bezier(.215, .61, .355, 1);transform: translateX(10%);transition-delay: 900ms;}
+.fade-down.is-inview{opacity: 1;transform: translateX(0px);}
+
+.fade-down{opacity: 0; transition: all 1s cubic-bezier(.215, .61, .355, 1);transform: translateX(10%);transition-delay: 0.5s;}
+.fade-down.is-inview{opacity: 1;transform: translateX(0px);}
+
+.fade{opacity: 0; transition: all 2s cubic-bezier(.215, .61, .355, 1);transition-delay: 1s;}
+.fade.is-inview{opacity: 1;}
+
+
+.reveal-top{height: 0;overflow: hidden;transition: all 1.52s cubic-bezier(.215, .61, .355, 1);transition-delay: 1200ms;}
+.reveal-top.is-inview{height: 100%;}
+
+/*.reveal-left{width: 0;overflow: hidden;transition: all 3.52s cubic-bezier(.215, .61, .355, 1);transition-delay: 200ms;}
+.reveal-left.is-inview{width: 100%;}*/
+.reveal-left{width: 0;overflow: hidden;transition: all 2s cubic-bezier(.215, .61, .355, 1);transition-delay: 200ms}
+.reveal-left.is-inview{width: 100%;}
+
+
+.zoom-in {
+    opacity: 0;
+    transform: scale(1.2);
+    transition-delay: 900ms !important;
+    transition: all 1s cubic-bezier(.215, .61, .355, 1);
+}
+
+.zoom-in.is-inview{opacity: 1;transform: scale(1)}
+
+.text-reveal{overflow: hidden;display: block;}
+.text-reveal b{display: inline-block;will-change: transform;transform: translate3d(0,100%,0);transition: all 2s cubic-bezier(.4, .0, .0, 1);}
+.text-reveal.is-inview b{transform: none;}
+
+
+.slide-up.is-inview {
+    opacity: 1;
+    animation-delay: 0.4s;
+    animation-duration: 1s;
+    animation-name: wipe-up;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.slide-down.is-inview {
+    opacity: 1;
+    animation-delay: 0.3s;
+    animation-duration: 1s;
+    animation-name: wipe-down;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.slide-up {
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+.slide-down {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+.delay-1 {
+    transition-delay: 900ms;
+}
+
+.delay-2 {
+    transition-delay: 1300ms;
+}
+
+@keyframes wipe-up {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes wipe-down {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}

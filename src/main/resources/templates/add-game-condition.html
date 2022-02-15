@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html">
+<head>
+    <th:block th:include="admin-menu-fragment::head"></th:block>
+    <script>
+        $(document).ready(function() {
+            $('#e1').select2({
+                placeholder: "Потребител",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-1')
+            });
+        });
+    </script>
+</head>
+<body class="top blue">
+<div th:replace="admin-menu-fragment::top-icons"></div>
+<div class="content">
+    <div class="section column">
+        <div class="c3 gr-c gr-2">
+            <div class="blue-block align-start c3 gr-2">
+                <div class="c3 gr-gap-1-2">
+                    <p class="t3 f6">Избиране на вид седмично условие</p>
+                    <div class="c1 c5 gr-gap-1" style="margin-bottom: 6vw">
+                        <form th:action="@{/pick-week-game-condition-points}" method="get" class="c3 c2">
+                            <div class="c1 c5 gr-gap-1">
+                                <button type="submit" class="t3 f5 btn" data-scroll>Точки</button>
+                            </div>
+                        </form>
+                        <form th:action="@{/pick-week-game-condition-genre}" method="get" class="c3 c2">
+                            <div class="c1 c5 gr-gap-1">
+                                <button type="submit" class="t3 f5 btn" data-scroll>Жанр</button>
+                            </div>
+                        </form>
+                        <form th:action="@{/pick-week-game-condition-theatre}" method="get" class="c3 c2">
+                            <div class="c1 c5 gr-gap-1">
+                                <button type="submit" class="t3 f5 btn" data-scroll>Театър</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <img src="/pics/admin-backgrounds/third.jpg">
+        </div>
+        <div class="bck-circle"></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        Scrollbar.init(document.getElementById("main-scrollbar"), { damping: 0.1, delegateTo: document });
+    })
+</script>
+</body>
+</html>

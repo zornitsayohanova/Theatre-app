@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/theatre-hall.css}" rel="stylesheet"/>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+</head>
+<body class="top blue">
+<div data-scroll-container>
+    <button data-scroll class="menu-btn open-modal show-menu">
+        <p>МЕНЮ</p>
+    </button>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div th:replace="base-fragment::menu"></div>
+    <div class="content">
+        <div data-scroll-section>
+            <div class="section column">
+                <div class="c3 gr-r gr-gap-3 align-center" data-scroll>
+                    <p class="t4 f7 text-center">Спечелени места</p>
+                    <div class="c3 gr-gap-3" style="min-width: 80vw">
+                        <div class="c3 gr-gap-2 gr-r" th:each="selectedPlaySeat:${selectedPlaySeats}">
+                            <div class="c3 gr-4 gr-gap-2">
+                                <a class="t3 f2 text-center"
+                                   th:text="${selectedPlaySeat.getPlaySeat().play.name}"
+                                   th:href="@{/plays/{name}/{id}(name=${selectedPlaySeat.getPlaySeat().play.name}, id=${selectedPlaySeat.getPlaySeat().play.id})}">
+                                </a>
+                                <div class="c3 gr-c gr-gap-2 align-center">
+                                    <img class="icon-2" src="/pics/icons/calendar-icon.png">
+                                    <p class="t3 f1" th:text="${#dates.format(selectedPlaySeat.getPlaySeat().date, 'dd/MM/yyyy')}"></p>
+                                </div>
+                                <div class="c3 gr-c gr-gap-1 space-evenly">
+                                    <div class="c3 gr-c gr-gap-1 align-center">
+                                        <p class="t1 f2" th:text="'Място'"></p>
+                                        <p class="seat" th:text="${selectedPlaySeat.getPlaySeat().seatIdentifier}"></p>
+                                    </div>
+                                </div>
+                                <div class="c3 gr-c gr-gap-1 space-evenly">
+                                    <div class="c3 gr-r gr-gap-1 align-center">
+                                        <p class="t1 f2" th:text="'Оставащо време'"></p>
+                                        <div th:if="${selectedPlaySeat.remainingTime == null}"
+                                             class="c3 gr-r gr-gap-1 align-center">
+                                            <p class="t1 f2 sm text-center">Презаредете страницата</p>
+                                        </div>
+                                        <div th:if="${selectedPlaySeat.remainingTime != null}"
+                                             class="c3 gr-r gr-gap-1 align-center">
+                                            <p class="t1 f2" th:text="${selectedPlaySeat.remainingTime}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form sec:authorize="hasAuthority('ADMIN2')"
+                                  th:action="@{/delete-seat/{id}(id=${selectedPlaySeat.id})}"
+                                  method="post"
+                                  class="c3 align-end">
+                                <input type="hidden" th:value="${user.id}" name='userId'>
+                                <button class="btn f5" type="submit">
+                                    Спечелено
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div th:if="${#lists.isEmpty(selectedPlaySeats)}">
+                        <div class="t2 f1">Поздравления, спечелихте два билета, но <br>
+                            все още не са въведени. Моля, проверете по-късно същия ден. <br>
+                            Ако и тогава не са - свържете се с нашия екип: <br> <br>
+                            <p class="t2 f2 sm">theatre_art@gmail.com</p>
+                            <p class="t2 f2 sm">02/12 45 78</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function setSumPricePerOrder() {
+        let selectedSeatsPrices = document.querySelectorAll('.price');
+        let prices = []
+        selectedSeatsPrices.forEach(x => prices.push(x.firstChild.nodeValue))
+
+        let sumPrices = prices.map(x => parseFloat(x)).reduce((a, b) => a + b)
+        document.getElementById('sum').innerHTML = sumPrices.toFixed(1);
+    }
+</script>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>

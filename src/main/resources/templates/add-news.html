@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html">
+<head>
+    <th:block th:include="admin-menu-fragment::head"></th:block>
+    <script>
+        $(document).ready(function() {
+            $('#e1').select2({
+                placeholder: "Галерия (първо изберете снимката за аватар)",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-1')
+            });
+            $('#e2').select2({
+                placeholder: "Постановки",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-1')
+            });
+            $("#e3").select2({
+                placeholder: "Театри",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-3')
+            });
+            $("#e4").select2({
+                placeholder: "Актьори",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-3')
+            });
+        });
+    </script>
+</head>
+<body class="top blue">
+<div th:replace="admin-menu-fragment::top-icons"></div>
+<div class="content">
+    <div class="section column">
+        <div class="c3 gr-c gr-2">
+            <div class="blue-block align-start c3 gr-2">
+                <form th:action="@{/add-news}" th:object="${news}" method="post" class="c3 gr-gap-1-2">
+                    <p class="t3 f6">Добавяне на новина</p>
+                    <div class="c1 c5 gr-gap-1">
+                        <div class="t1 f1 sm msg c2 text-left" th:text="${message}"></div>
+                        <div class="c3 c2 gr-r gr-gap-3">
+                            <div class="form-group select2 select2-container">
+                                <input type="text" placeholder="Заглавие" th:field="*{title}">
+                            </div>
+                            <div class="form-group fl-c">
+                                <div class="select2">
+                                    <select id="e1" class="scrollbar" th:field="*{avatar}">
+                                        <option value=""></option>
+                                        <option th:each="picture:${allPictures}"
+                                                th:value="${picture.id}"
+                                                th:text="${picture.name}"
+                                        >
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="select2 b-0">
+                                    <select id="e2" class="scrollbar" th:field="*{plays}" multiple>
+                                        <option value=""></option>
+                                        <option th:each="play:${allPlays}"
+                                                th:value="${play.id}"
+                                                th:text="${play.name}"
+                                        >
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="select2 b-0">
+                                    <select id="e3" class="scrollbar" th:field="*{theatres}" multiple>
+                                        <option value=""></option>
+                                        <option th:each="theatre:${allTheatres}"
+                                                th:value="${theatre.id}"
+                                                th:text="${theatre.name}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group fl-c">
+                                <div class="select2 b-0">
+                                    <select id="e4" class="scrollbar" th:field="*{actors}" multiple>
+                                        <option value=""></option>
+                                        <option th:each="actor:${allActors}"
+                                                th:value="${actor.id}"
+                                                th:text="${actor.name}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group select2">
+                                <textarea placeholder="Съдържание - до 8000 символа"
+                                          th:field="*{content}">
+                                </textarea>
+                            </div>
+                            <div id="parent-dropdown-1"></div>
+                            <div id="parent-dropdown-2"></div>
+                            <div id="parent-dropdown-3"></div>
+                        </div>
+                        <button type="submit" class="t3 f5 btn">Добави</button>
+                    </div>
+                </form>
+            </div>
+            <img src="/pics/admin-backgrounds/fifth.jpg">
+        </div>
+        <div class="bck-circle"></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        Scrollbar.init(document.getElementById("main-scrollbar"), { damping: 0.1, delegateTo: document });
+    })
+</script>
+</body>
+</html>

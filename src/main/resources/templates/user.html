@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/result.css}" rel="stylesheet"/>
+    <link th:href="@{/css/background-zoom-effect.css}" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:200" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body data-scroll-container>
+    <button data-scroll class="menu-btn open-modal show-menu">
+    <p>МЕНЮ</p>
+</button>
+    <div th:replace="base-fragment::top-icons"></div>
+
+   <div id="navbar" class="menu" data-scroll-sticky data-scroll-speed="4" th:width="300px" th:height="70px">
+        <div class="nav">
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="/news">ТЪРСЕНЕ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">СТАТИСТИКА</a>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="nav-link" href="/plays">НАБЕЛЯЗАНИ</a>
+                        <div class="dropdown-content">
+                            <a class="nav-link" href="/">ПОСТАНОВКИ</a>
+                            <a class="nav-link" href="/actors">АКТЬОРИ</a>
+                            <a class="nav-link" href="/actors">ТЕАТРИ</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="nav-link" href="/theatres">ЛЮБИМИ</a>
+                        <div class="dropdown-content">
+                            <a class="nav-link" href="/">ПОСТАНОВКИ</a>
+                            <a class="nav-link" href="/actors">АКТЬОРИ</a>
+                            <a class="nav-link" href="/actors">ТЕАТРИ</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/most">МОИ ГЕРОИ</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div th:replace="base-fragment::menu"></div>
+    <script th:replace="base-fragment::script"></script>
+
+    <div class="content" data-scroll="">
+        <div data-scroll-section>
+            <div class="section">
+                <div class="c3" data-scroll="">
+                    <div class="c5" data-scroll="">
+                        <div data-scroll class="nz">
+                        </div>
+                    </div>
+                    <div class="c8" data-scroll>
+                        <div data-scroll class="nz">
+                            <div data-scroll class="seats-container">
+                                <div data-scroll th:each="seat: ${rowsWithSeats}">
+                                    <div th:if="${seat.isFree == 0}" class="freeSeat" th:text="${seat.numberOfSeat}">
+                                    </div>
+                                </div>
+                                <p>
+                                    от 1 до 4 ред - <b>15лв.</b><br><br>
+                                    от 4 до 8 ред - <b>12лв.</b><br><br>
+                                    от 8 до 12 ред - <b>10лв.</b><br><br>
+                                </p>
+                                <div class="form-group">
+                                    <button data-toggle="dropdown"
+                                            class="btn btn-default dropdown-toggle" type="button">
+                                        <span class="caret"></span>
+                                        Места
+                                    </button>
+                                    <ul role="menu" class="dropdown-menu">
+                                        <input type="checkbox" name="roles"
+                                               th:each="seat: ${rowsWithSeats}"
+                                               th:text="'ред: ' + ${seat.numberOfRow} + ' ' + 'място: ' + ' ' + ${seat.numberOfSeat}"
+                                               th:value="${seat.id}"
+                                               th:field="*{rowsWithSeats}"
+                                        />
+                                    </ul>
+                                    <button class="btn" type="button">Резервирай</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

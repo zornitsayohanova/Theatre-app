@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html">
+<head>
+    <th:block th:include="admin-menu-fragment::head"></th:block>
+    <script>
+        $(document).ready(function() {
+            $('#e1').select2({
+                placeholder: "Потребител",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-1')
+            });
+        });
+        $(document).ready(function() {
+            $('#e2').select2({
+                placeholder: "Потребител",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-1')
+            });
+        });
+    </script>
+</head>
+<body class="top blue">
+<div th:replace="admin-menu-fragment::top-icons"></div>
+<div class="content">
+    <div class="section column admin2">
+        <div class="c3 gr-c align-center">
+            <div class="blue-block align-center c3 gr-gap-4">
+                <form th:action="@{/get-user-reserved-seats}" th:object="${user}" method="post" class="c3 gr-gap-1-2">
+                    <p class="t3 f6">Избиране на потребител</p>
+                    <div class="c1 c5 gr-gap-1">
+                        <div class="c3 c2 gr-r gr-gap-1">
+                            <div class="form-group">
+                                <div class="select2">
+                                    <select id="e1" class="scrollbar" th:field="*{id}">
+                                        <option th:each="user:${allUsers}"
+                                                th:value="${user.id}"
+                                                th:text="${user.username}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="parent-dropdown-1"></div>
+                        </div>
+                        <button type="submit" class="t3 f5 btn" data-scroll>Резервирани</button>
+                    </div>
+                </form>
+                <form th:action="@{/get-user-won-seats}" th:object="${user}" method="post" class="c3 gr-gap-1-2">
+                    <p class="t3 f6">Избиране на потребител</p>
+                    <div class="c1 c5 gr-gap-1">
+                        <div class="c3 c2 gr-r gr-gap-1">
+                            <div class="form-group">
+                                <div class="select2">
+                                    <select id="e2" class="scrollbar" th:field="*{id}">
+                                        <option th:each="user:${allUsers}"
+                                                th:value="${user.id}"
+                                                th:text="${user.username}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="parent-dropdown-1"></div>
+                        </div>
+                        <button type="submit" class="t3 f5 btn" data-scroll>Спечелени</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        Scrollbar.init(document.getElementById("main-scrollbar"), { damping: 0.1, delegateTo: document });
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link th:href="@{/css/locomotive-scroll.css}" rel="stylesheet"/>
+    <link th:href="@{/css/shared.css}" rel="stylesheet"/>
+    <link th:href="@{/css/search-bar-effect.css}" rel="stylesheet"/>
+    <link th:href="@{/css/modal.css}" rel="stylesheet"/>
+    <link th:href="@{/css/scrollbar.css}" rel="stylesheet"/>
+    <link th:href="@{/css/animations.css}" rel="stylesheet"/>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css" type="text/css">
+    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+
+    <link rel="icon" type="image/gif" href="/pics/favicon/logo-fav-icon.png">
+</head>
+<body>
+<div class="top-icons c3 gr-c" th:fragment="top-icons" data-scroll-sticky>
+    <div class="c3 gr-c align-start">
+        <div class="logo-container c3 gr-c gr-gap-2 align-end" data-scroll-section>
+            <div class="c3 gr-3 gr-gap-1">
+                <a href="/home">
+                    <img class="icon logo" src="/pics/icons/logo-icon.png">
+                </a>
+            </div>
+        </div>
+        <dic class="desktop-menus">
+            <div id="navbar" class="horizontal menu" width="300px" height="70px">
+                <div>
+                    <ul class="c3 nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home">НАЧАЛО</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/schedule">ПРОГРАМА</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/actors/search">АКТЬОРИ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/plays/search">ПОСТАНОВКИ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/theatres/search">ТЕАТРИ</a>
+                        </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="/news-results">НОВИНИ</a>
+                         </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="userNavbar" sec:authorize="!hasAuthority('ADMIN2')"
+                 class="horizontal menu" data-scroll-sticky th:width="300px" th:height="70px">
+                <div class="nav">
+                    <ul>
+                        <li class="nav-item">
+                            <a class="nav-link" th:if="${user != null && user.isGameEligible == false}"
+                               href="/game-rules-and-user-statistics">
+                                ИГРА
+                            </a>
+                            <a class="nav-link" th:if="${user != null && user.isGameEligible == true}" style="color: #67ffa9;"
+                               href="/game-rules-and-user-statistics">
+                                ИГРА
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <a class="nav-link">НАБЕЛЯЗАНИ + ИЗГЛЕДАНИ</a>
+                                <div class="dropdown-content">
+                                    <a class="nav-link" href="/targeted-plays">ПОСТАНОВКИ</a>
+                                    <a class="nav-link" href="/targeted-actors">АКТЬОРИ</a>
+                                    <a class="nav-link" href="/targeted-theatres">ТЕАТРИ</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <a class="nav-link">ЛЮБИМИ</a>
+                                <div class="dropdown-content">
+                                    <a class="nav-link" href="/favourite-plays">ПОСТАНОВКИ</a>
+                                    <a class="nav-link" href="/favourite-actors">АКТЬОРИ</a>
+                                    <a class="nav-link" href="/favourite-theatres">ТЕАТРИ</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <a class="nav-link">ОЦЕНЕНИ</a>
+                                <div class="dropdown-content">
+                                    <a class="nav-link" href="/rated-plays">ПОСТАНОВКИ</a>
+                                    <a class="nav-link" href="/rated-actors">АКТЬОРИ</a>
+                                    <a class="nav-link" href="/rated-theatres">ТЕАТРИ</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/reserved-seats">РЕЗЕРВИРАНИ</a>
+                        </li>
+                        <li class="nav-item" th:if="${user != null}">
+                            <a th:if="${user.hasWonTicket == true}" class="nav-link" style="color: #67ffa9;"
+                               href="/won-seats" >СПЕЧЕЛЕНИ
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </dic>
+    </div>
+    <div class="desktop-icons c3 gr-c gr-gap-2 align-end">
+        <div class="c3 gr-c gr-gap-1 align-end" data-scroll-section>
+            <header>
+                <form th:action="@{/search-by-keyword}" th:object="${keyword}" method="post">
+                    <input type="text" th:field="*{keywordValue}"/>
+                </form>
+                <div class="cl">
+                    <span class="front"></span>
+                    <span class="back"></span>
+                </div>
+            </header>
+
+            <a sec:authorize="hasAuthority('USER')" id="mobile-hidden" class="c3 gr-c gr-gap-1" href="/profile">
+                <img class="icon" src="/pics/icons/user-icon.png">
+                <div class="f1 sm c3 username" th:text="${user.getUsername()}"></div>
+            </a>
+            <a sec:authorize="hasAuthority('ADMIN1')" href="/add-picture">
+                <img class="icon" src="/pics/icons/admin-icon.png">
+            </a>
+            <a sec:authorize="hasAuthority('ADMIN2')" href="/find-user">
+                <img class="icon" src="/pics/icons/admin-icon.png">
+            </a>
+            <a sec:authorize="isAuthenticated()" href="/logout">
+                <img class="icon" src="/pics/icons/exit-icon.png">
+            </a>
+            <a sec:authorize="!isFullyAuthenticated()" href="/user-entrance" class="mbtn text-left">
+                <img class="icon" src="/pics/icons/entrance-icon.png">
+            </a>
+        </div>
+    </div>
+    <div class="mobile-icons c3 gr-r gr-gap-1 align-end">
+        <button class="menu-icon show-menu open-modal">
+            МЕНЮ
+        </button>
+        <button sec:authorize="hasAuthority('USER')" class=" show-user-menu menu-icon open-modal">
+            <img class="icon" src="/pics/icons/user-icon.png">
+        </button>
+    </div>
+</div>
+<div class="mobile-menus" th:fragment="menu">
+    <div id="menu-modal">
+        <div id="menu-content" class="big-menu">
+            <button id="close-modal" class="close-modal">X</button>
+            <div class="c3 gr-c" th:width="300px" th:height="70px">
+                <div class="nav">
+                    <ul>
+                        <li class="nav-item l1">
+                            <span>01</span><a class="nav-link" href="/home">НАЧАЛО</a>
+                        </li>
+                        <li class="nav-item l1">
+                            <span>02</span><a class="nav-link" href="/schedule">ПРОГРАМА</a>
+                        </li>
+                        <li class="nav-item l1">
+                            <span>03</span><a class="nav-link"  href="/plays/search">ПОСТАНОВКИ</a>
+                        </li>
+                        <li class="nav-item l1">
+                            <span>04</span><a class="nav-link" href="/actors/search">АКТЬОРИ</a>
+                        </li>
+                        <li class="nav-item l1">
+                            <span>05</span><a class="nav-link" href="/theatres/search">ТЕАТРИ</a>
+                        </li>
+                         <li class="nav-item l1">
+                             <span>06</span><a class="nav-link" href="/news-results">НОВИНИ</a>
+                         </li>
+                    </ul>
+                </div>
+                <div class="img"></div>
+            </div>
+        </div>
+    </div>
+    <div id="user-menu-modal" sec:authorize="!hasAuthority('ADMIN2')">
+        <div id="user-menu-content" class="big-menu">
+            <button id="close-user-modal" class="close-modal">X</button>
+            <div class="menu" th:width="300px" th:height="70px">
+                <div class="nav">
+                    <ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profile">ПРОФИЛ</a>
+                        </li>
+                        <li class="nav-item" th:if="${user != null}">
+                            <a class="nav-link" th:if="${user.isGameEligible == true}" style="color: #67ffa9;"
+                               href="/game-rules-and-user-statistics">
+                                ИГРА
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="/game-rules-and-user-statistics">
+                                ИГРА
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="toggle-dropdown text-left">
+                                    <a class="nav-link">НАБЕЛЯЗАНИ + ИЗГЛЕДАНИ</a>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a class="nav-link" href="/targeted-plays">ПОСТАНОВКИ</a>
+                                    <a class="nav-link" href="/targeted-actors">АКТЬОРИ</a>
+                                    <a class="nav-link" href="/targeted-theatres">ТЕАТРИ</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="toggle-dropdown">
+                                    <a class="nav-link">ЛЮБИМИ</a>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a class="nav-link" href="/favourite-plays">ПОСТАНОВКИ</a>
+                                    <a class="nav-link" href="/favourite-actors">АКТЬОРИ</a>
+                                    <a class="nav-link" href="/favourite-theatres">ТЕАТРИ</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="toggle-dropdown">
+                                    <a class="nav-link">ОЦЕНЕНИ</a>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a class="nav-link" href="/rated-plays">ПОСТАНОВКИ</a>
+                                    <a class="nav-link" href="/rated-actors">АКТЬОРИ</a>
+                                    <a class="nav-link" href="/rated-theatres">ТЕАТРИ</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/reserved-seats">РЕЗЕРВИРАНИ</a>
+                        </li>
+                        <li class="nav-item" th:if="${user != null}">
+                            <a th:if="${user.hasWonTicket == true}" class="nav-link" href="/won-seats" style="color: #67ffa9;">СПЕЧЕЛЕНИ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(document).ready(function() {
+        var modal = $('#menu-modal');
+
+        $('.show-menu').click(function () {
+            modal.show();
+            $('#menu-content').css("display", "block");
+            $('#menu-content').css("animation", "wipe-down");
+            $('#menu-content').css("animation-iteration-count", "1");
+            $('#menu-content').css("animation-timing-function", "ease-in-out");
+            $('#menu-content').css("animation-duration", "1.1s");
+            $('#menu-content').css("animation-fill-mode", "forwards");
+        });
+
+        $('#close-modal').on('click', function () {
+            $('#menu-content').delay(100).fadeOut();
+        });
+
+        var userModal = $('#user-menu-modal');
+
+        $('.show-user-menu').click(function () {
+            userModal.show();
+            $('#user-menu-content').css("display", "block");
+            $('#user-menu-content').css("animation", "wipe-down");
+            $('#user-menu-content').css("animation-iteration-count", "1");
+            $('#user-menu-content').css("animation-timing-function", "ease-in-out");
+            $('#user-menu-content').css("animation-duration", "1.1s");
+            $('#user-menu-content').css("animation-fill-mode", "forwards");
+        });
+
+        $('#close-user-modal').on('click', function () {
+            $('#user-menu-content').delay(100).fadeOut();
+        });
+    });
+</script>
+<script>
+    $('.toggle-dropdown').on('click', function() {
+        $(this).parent().find("div.dropdown-content").slideToggle();
+    })
+</script>
+<script>
+    const scroll = new LocomotiveScroll({
+        el: document.querySelector('[data-scroll-container]'),
+        smooth: true,
+        getDirection: true,
+
+      //  multiplier: 0.2,
+          multiplier: 1.7
+        //  smoothMobile: true,
+       // firefoxMultiplier: 100
+    });
+
+    scroll.on('scroll', (instance) => {
+        document.documentElement.setAttribute('data-direction', instance.direction)
+    });
+</script>
+

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" class="no-js"
+      data-th-fragment="layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="base-fragment::head"></th:block>
+    <link th:href="@{/css/results.css}" rel="stylesheet"/>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-dropdown.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom-select2.css}" rel="stylesheet"/>
+    <link th:href="@{/css/actors.css}" rel="stylesheet"/>
+    <script>
+        $(document).ready(function() {
+            $("#e1").select2({
+                placeholder:"Актьор",
+                allowClear: true,
+                dropdownParent: $('#parent-dropdown-1')
+            });
+        });
+    </script>
+</head>
+<body class="top green">
+<div data-scroll-container>
+    <button data-scroll class="menu-btn open-modal show-menu">
+        <p>МЕНЮ</p>
+    </button>
+    <div th:replace="base-fragment::top-icons"></div>
+    <div th:replace="base-fragment::menu"></div>
+    <div class="content">
+        <div data-scroll-section>
+            <div class="section c2">
+                <div class="c3 c4 gr-r gr-gap-3 fade" data-scroll>
+                    <span class="f1 t2 text-center" data-th-text="${message}"></span>
+                    <div class="c1 c2 align-center">
+                        <h1 class="t4 f3 text-left">Искаш да изгледаш репертоара на някой актьор?</h1>
+                    </div>
+                    <form th:action="@{/target-actor}" th:object="${actor}" th:multiple="true" method="post">
+                        <div class="c3 c2 gr-gap-3 gr-r gr-gap-1">
+                            <div class="select2">
+                                <select id="e1" class="scrollbar" th:field="*{id}">
+                                    <option value=""></option>
+                                    <option th:each="actor:${allActors}"
+                                            th:value="${actor.id}"
+                                            th:text="${actor.name}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div data-scroll class="c1 align-end form-group">
+                                <button type="submit" class="btn f5">Набележи</button>
+                            </div>
+                        </div>
+                        <div id="parent-dropdown-1"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div data-scroll class="c3 gr-gap-4 align-center">
+                <div class="c3 tc gr-gap-2">
+                    <h1 class="t4 f6">Набелязани актьори <br> (репертоар)</h1>
+                    <p class="t1 f1 sm text-right">
+                        Ако всички постановки в графа "неизгледани" бъдат премахнати от репертоара на някой набелязан актьор -
+                        той ще се появи в долната категория и ще Ви се добавят 5 точки
+                    </p>
+                </div>
+                <div class="section align-center">
+                    <div class="c1 c2 align-center">
+                        <div class="box" th:each="actor:${targetedActors}">
+                            <div class="logo-box c1 c3 gr-r gr-gap-2 align-center">
+                                <div class="c3 gr-r gr-gap-2">
+                                    <a class="c3 gr-r gr-gap-2"
+                                       th:href="@{/actors/search/results/{name}/{id}(name=${actor.name},id=${actor.id})}"
+                                       data-scroll>
+                                        <img th:src="${actor.avatar.path}">
+                                    </a>
+                                    <div class="c3 gr-c gr-gap-1 res-tlt">
+                                        <a class="t3 t5 f1"
+                                           th:href="@{/actors/search/results/{name}/{id}(name=${actor.name},id=${actor.id})}"
+                                           th:text="${actor.name}"
+                                           data-scroll>
+                                        </a>
+                                        <div class="c3 gr-c gr-gap-1 align-end">
+                                            <form th:action="@{/get-targeted-actor-progress/{id}(id=${actor.id})}" target="_blank" method="post">
+                                                <button type="submit">
+                                                    <img class="icon-2" src="/pics/icons/progress-icon.png">
+                                                </button>
+                                            </form>
+                                            <form th:action="@{/remove-targeted-actor/{id}(id=${actor.id})}" method="post">
+                                                <button type="submit">
+                                                    <img class="icon-2" src="/pics/icons/close-icon.png">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${#lists.isEmpty(targetedActors)}">
+                            <p class="t2 f1">Няма резултати</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-scroll-section>
+            <div data-scroll class="c3 gr-gap-4 align-center">
+                <div class="c3 tc gr-gap-2">
+                    <h1 class="t4 f6">Изгледани актьори <br> (репертоар)</h1>
+                    <p class="t1 f1 sm text-right">
+                        Ако към репертора на някой изгледан актьор бъдат добавени нови постановки, които все още не сте гледали -
+                        той автоматично ще се появи в горната категория и ще Ви се отнемат 5 точки
+                    </p>
+                </div>
+                <div class="section align-center">
+                    <div class="c1 c2 align-center">
+                        <div class="box" th:each="actor:${watchedActors}">
+                            <div class="logo-box c1 c3 gr-r gr-gap-2 align-center">
+                                <div class="c3 gr-r gr-gap-2">
+                                    <a class="c3 gr-r gr-gap-2"
+                                       th:href="@{/actors/search/results/{name}/{id}(name=${actor.name},id=${actor.id})}"
+                                       data-scroll>
+                                        <img th:src="${actor.avatar.path}">
+                                        <div class="c3 gr-r gr-gap-1">
+                                            <p class="t3 t5 f1" th:text="${actor.name}"></p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${#lists.isEmpty(watchedActors)}">
+                            <p class="t2 f1">Няма резултати</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:replace="base-fragment::script"></script>
+</body>
+</html>
